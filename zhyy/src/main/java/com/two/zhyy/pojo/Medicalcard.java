@@ -17,7 +17,6 @@ public class Medicalcard {
 	
 	//用户id 外键
 	
-	
 	public Medicalcard() {
 	}
 

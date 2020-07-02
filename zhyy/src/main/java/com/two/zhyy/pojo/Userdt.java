@@ -29,7 +29,6 @@ public class Userdt {
 	int age;  //挂号人年龄
 	@Column
 	char sex;  //挂号人性别
-	  			//用户表id（外键）
 	public int getUdtid() {
 		return udtid;
 	}
