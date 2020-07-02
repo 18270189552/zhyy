@@ -46,4 +46,5 @@ public class Doctordt {
 	public void setDsex(String dsex) {
 		this.dsex = dsex;
 	}
+	
 }

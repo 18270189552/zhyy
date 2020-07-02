@@ -36,4 +36,5 @@ public class Doctor {
 	public void setRprice(Double rprice) {
 		this.rprice = rprice;
 	}
+	
 }

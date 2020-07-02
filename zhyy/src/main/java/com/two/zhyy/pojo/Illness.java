@@ -26,4 +26,5 @@ public class Illness {
 	public void setIllnessname(String illnessname) {
 		this.illnessname = illnessname;
 	}
+	
 }
