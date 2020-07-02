@@ -2,6 +2,7 @@ package com.two.zhyy.pojo;
 
 public class Drecord {
 	
+	
 	//逻辑主键
 	int drid;
 	
