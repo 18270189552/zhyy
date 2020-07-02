@@ -1,5 +1,10 @@
 package com.two.zhyy.pojo;
 
+/**
+ * 医师记录实体类
+ * @author 刘松杰
+ *
+ */
 public class Drecord {
 	
 	

@@ -1,6 +1,6 @@
 package com.two.zhyy.pojo;
 /**
- * 科室表实体类
+ * 科室实体类
  * @author 刘松杰
  *
  */

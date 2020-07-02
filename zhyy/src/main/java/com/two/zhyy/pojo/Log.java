@@ -1,7 +1,11 @@
 package com.two.zhyy.pojo;
 
 import javax.xml.crypto.Data;
-
+/**
+ * 交易日志实体类
+ * @author 刘松杰
+ *
+ */
 public class Log {
 	
 	//逻辑主键

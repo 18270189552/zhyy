@@ -2,6 +2,11 @@ package com.two.zhyy.pojo;
 
 import javax.xml.crypto.Data;
 
+/**
+ * 挂号
+ * @author 刘松杰
+ *
+ */
 public class Reg {
 	
 	//逻辑主键
