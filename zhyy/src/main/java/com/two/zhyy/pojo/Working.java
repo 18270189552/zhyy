@@ -13,7 +13,6 @@ public class Working {
 	private Integer number;  //最大诊断人数
 	private Doctor doctor;	//医师
 	
-	
 	public Integer getWorkid() {
 		return workid;
 	}
@@ -32,7 +31,10 @@ public class Working {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	
-	
-	
+	public Doctor getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
 }
