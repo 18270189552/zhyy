@@ -11,7 +11,8 @@ public class Working {
 	 */
 	private Integer workid;  //排班id
 	private String data;  //排班日期
-	private  Integer number;  //最大诊断人数
+	private Integer number;  //最大诊断人数
+	private Doctor doctor;	//医师
 	
 	
 	public Integer getWorkid() {

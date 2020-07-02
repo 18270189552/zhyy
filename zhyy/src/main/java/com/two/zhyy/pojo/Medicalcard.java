@@ -10,22 +10,30 @@ import java.math.BigDecimal;
 public class Medicalcard {
 	
 	//医疗卡id
-	int mcid;			//逻辑主键
+	private Integer mcid;			//逻辑主键
 	
 	//金额
-	BigDecimal money;
+	private BigDecimal money;
 	
 	//用户id 外键
+	private Users users;
 	
 	public Medicalcard() {
 	}
-
 	
-	public int getMcid() {
+	public Users getId() {
+		return users;
+	}
+
+	public void setId(Users id) {
+		this.users = id;
+	}
+
+	public Integer getMcid() {
 		return mcid;
 	}
 
-	public void setMcid(int mcid) {
+	public void setMcid(Integer mcid) {
 		this.mcid = mcid;
 	}
 
