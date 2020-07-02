@@ -4,7 +4,6 @@ package com.two.zhyy.pojo;
  * @author Administrator
  *
  */
-//asdf
 public class Working {
 	/**
 	 * 定义属性
