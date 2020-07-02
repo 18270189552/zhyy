@@ -13,7 +13,6 @@ import javax.persistence.Id;
 //持久化实体类
 @Entity
 public class Userdt {
-
 	//主键
 	@Id
 	//自动生成填充
@@ -67,5 +66,4 @@ public class Userdt {
 	public void setSex(char sex) {
 		this.sex = sex;
 	}
-		
 }

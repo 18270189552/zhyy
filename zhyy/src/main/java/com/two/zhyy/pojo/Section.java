@@ -1,25 +1,20 @@
 package com.two.zhyy.pojo;
 /**
- * 科室
- * @author Administrator
+ * 科室表实体类
+ * @author 刘松杰
  *
  */
 public class Section {
 
-	//科室id	逻辑主键
-	int seid;
+	Integer seid;//科室id
 	
-	//科室名
-	String sectionname;
-	
-	public Section() {
-	}
+	String sectionname;//科室名称
 
-	public int getSeid() {
+	public Integer getSeid() {
 		return seid;
 	}
 
-	public void setSeid(int seid) {
+	public void setSeid(Integer seid) {
 		this.seid = seid;
 	}
 
@@ -30,5 +25,4 @@ public class Section {
 	public void setSectionname(String sectionname) {
 		this.sectionname = sectionname;
 	}
-
 }

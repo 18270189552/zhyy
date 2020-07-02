@@ -42,11 +42,4 @@ public class Reg {
 		this.regstate = regstate;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 }
