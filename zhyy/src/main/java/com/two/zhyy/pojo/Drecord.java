@@ -9,19 +9,19 @@ public class Drecord {
 	
 	
 	//逻辑主键
-	int drid;
+	private Integer drid;
 	
 	//处方
-	String recipe;
+	private String recipe;
 	
 	//处理症状
-	String symptom;
+	private String symptom;
 	
 	//处理类型
-	String type;
+	private String type;
 
 	//挂号Id(外键)
-	Reg reg;
+	private Reg reg;
 	
 	public int getDrid() {
 		return drid;
