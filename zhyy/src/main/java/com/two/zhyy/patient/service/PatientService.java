@@ -7,4 +7,6 @@ package com.two.zhyy.patient.service;
  */
 public interface PatientService {
 
+	
+	
 }
