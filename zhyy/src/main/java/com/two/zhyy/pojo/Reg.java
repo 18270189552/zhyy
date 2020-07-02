@@ -10,24 +10,27 @@ import javax.xml.crypto.Data;
 public class Reg {
 	
 	//逻辑主键
-	int regid;
+	private Integer regid;
 	
 	//挂号时间
-	Data regtime;
+	private Data regtime;
 	
 	//挂号状态
-	String regstate;
+	private String regstate;
 	
-	//日志id(外键)
-	//用户id(外键)
-	//医生id(外键)
-	//记录id(外键)
+	private Log log;//交易日志
+	
+	private Users users;//用户
+	
+	private Doctor doctor;//医师
+	
+	private Drecord drecord;//医师记录
 
-	public int getRegid() {
+	public Integer getRegid() {
 		return regid;
 	}
 
-	public void setRegid(int regid) {
+	public void setRegid(Integer regid) {
 		this.regid = regid;
 	}
 
@@ -46,5 +49,36 @@ public class Reg {
 	public void setRegstate(String regstate) {
 		this.regstate = regstate;
 	}
-	
+
+	public Log getLog() {
+		return log;
+	}
+
+	public void setLog(Log log) {
+		this.log = log;
+	}
+
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	public Drecord getDrecord() {
+		return drecord;
+	}
+
+	public void setDrecord(Drecord drecord) {
+		this.drecord = drecord;
+	}
 }
