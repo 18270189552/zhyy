@@ -10,24 +10,19 @@ import javax.persistence.Id;
  * @author 小米
  *
  */
-//持久化实体类
-@Entity
+
 public class Userdt {
-	//主键
-	@Id
-	//自动生成填充
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	int udtid;  //主键
-	//指定列
-	@Column
+	
 	char name;  //挂号人姓名
-	@Column
+	
 	char ldcard;  //挂号人身份证
-	@Column
+	
 	char phone;  //挂号人电话
-	@Column
+	
 	int age;  //挂号人年龄
-	@Column
+	
 	char sex;  //挂号人性别
 	  			//用户表id（外键）
 	public int getUdtid() {
