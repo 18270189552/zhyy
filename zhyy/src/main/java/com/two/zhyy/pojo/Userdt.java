@@ -19,7 +19,7 @@ public class Userdt {
 	
 	private String  sex;  //挂号人性别
 	
-	private Users users;  //用户
+	private Users users;  //用户（外键）
 
 	public Integer getUdtid() {
 		return udtid;

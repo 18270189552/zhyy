@@ -18,13 +18,13 @@ public class Reg {
 	//挂号状态
 	private String regstate;
 	
-	private Log log;//交易日志
+	private Log log;//交易日志（外键）
 	
-	private Users users;//用户
+	private Users users;//用户（外键）
 	
-	private Doctor doctor;//医师
+	private Doctor doctor;//医师（外键）
 	
-	private Drecord drecord;//医师记录
+	private Drecord drecord;//医师记录（外键）
 
 	public Integer getRegid() {
 		return regid;
