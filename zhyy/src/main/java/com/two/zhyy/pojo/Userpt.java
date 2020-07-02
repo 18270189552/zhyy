@@ -10,13 +10,13 @@ package com.two.zhyy.pojo;
 public class Userpt {
 
 
-	int ptid;  //权限id
+	private Integer ptid;  //权限id
 	
-	int patient;  //患者 1
+	private Integer patient;  //患者 1
 	
-	int doctor;  //医师 2
+	private Integer doctor;  //医师 2
 	
-	int admin;  //管理员 3
+	private Integer admin;  //管理员 3
 	public int getPtid() {
 		return ptid;
 	}

@@ -7,9 +7,20 @@ package com.two.zhyy.pojo;
  */
 public class Illness {
 
-	Integer illid;//子科室id
+	private Integer illid;//子科室id
 	
-	String illnessname;//名称
+	private String illnessname;//名称
+	
+	private Section section;	//科室外键
+	
+
+	public Section getSection() {
+		return section;
+	}
+
+	public void setSection(Section section) {
+		this.section = section;
+	}
 
 	public Integer getIllid() {
 		return illid;

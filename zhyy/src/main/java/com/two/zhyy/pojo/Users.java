@@ -10,32 +10,53 @@ package com.two.zhyy.pojo;
 public class Users {
 
 	
-	int id; //用户主键
+	private Integer id; //用户主键
 
-	char username;  //用户账户
+	private String username;  //用户账户
 
-	char password;  //用户密码
-				//用户医疗卡id（外键）
-				//权限id（外键）
+	private String password;  //用户密码
 	
+	private Medicalcard medicalcard;	//用户医疗卡id（外键）
 	
-	public int getId() {
+	private Userpt userpt;	//权限id（外键）
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public char getUsername() {
+
+	public String getUsername() {
 		return username;
 	}
-	public void setUsername(char username) {
+
+	public void setUsername(String username) {
 		this.username = username;
 	}
-	public char getPassword() {
+
+	public String getPassword() {
 		return password;
 	}
-	public void setPassword(char password) {
+
+	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public Medicalcard getMedicalcard() {
+		return medicalcard;
+	}
+
+	public void setMedicalcard(Medicalcard medicalcard) {
+		this.medicalcard = medicalcard;
+	}
+
+	public Userpt getUserpt() {
+		return userpt;
+	}
+
+	public void setUserpt(Userpt userpt) {
+		this.userpt = userpt;
+	}
 }
