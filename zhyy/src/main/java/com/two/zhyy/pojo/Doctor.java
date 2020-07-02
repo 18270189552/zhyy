@@ -7,12 +7,15 @@ package com.two.zhyy.pojo;
  */
 public class Doctor {
 
-	Integer docid;//医师id
+	private Integer docid;//医师id
 	
-	String rank;//医师级别
+	private String rank;//医师级别
 	
-	Double rprice;//挂号价格
-
+	private Double rprice;//挂号价格
+	
+	private Doctordt doctordt;	//医生详细id（外键）
+	
+	private Illness illness;	//子科室id（外键）
 	public Integer getDocid() {
 		return docid;
 	}
@@ -35,6 +38,22 @@ public class Doctor {
 
 	public void setRprice(Double rprice) {
 		this.rprice = rprice;
+	}
+
+	public Doctordt getDoctordt() {
+		return doctordt;
+	}
+
+	public void setDoctordt(Doctordt doctordt) {
+		this.doctordt = doctordt;
+	}
+
+	public Illness getIllness() {
+		return illness;
+	}
+
+	public void setIllness(Illness illness) {
+		this.illness = illness;
 	}
 	
 }

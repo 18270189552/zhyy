@@ -21,7 +21,7 @@ public class Drecord {
 	String type;
 
 	//挂号Id(外键)
-	
+	Reg reg;
 	
 	public int getDrid() {
 		return drid;
@@ -54,8 +54,15 @@ public class Drecord {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
 
+	public Reg getReg() {
+		return reg;
+	}
+
+	public void setReg(Reg reg) {
+		this.reg = reg;
+	}
+	
 	
 	
 

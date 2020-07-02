@@ -6,9 +6,9 @@ package com.two.zhyy.pojo;
  */
 public class Section {
 
-	Integer seid;//科室id
+	private Integer seid;//科室id
 	
-	String sectionname;//科室名称
+	private String sectionname;//科室名称
 
 	public Integer getSeid() {
 		return seid;
