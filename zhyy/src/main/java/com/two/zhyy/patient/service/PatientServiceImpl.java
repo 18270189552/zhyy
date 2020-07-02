@@ -9,7 +9,7 @@ import com.two.zhyy.pojo.Reg;
 /**
  * 业务逻辑的实现类
  * @author 小米
- *
+ *的撒
  */
 @Service
 public class PatientServiceImpl implements PatientService{
