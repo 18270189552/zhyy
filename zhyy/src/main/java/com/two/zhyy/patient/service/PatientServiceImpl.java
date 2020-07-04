@@ -2,8 +2,10 @@ package com.two.zhyy.patient.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.two.zhyy.patient.mapper.PatientMapper;
 import com.two.zhyy.pojo.Reg;
 
 /**
@@ -14,10 +16,14 @@ import com.two.zhyy.pojo.Reg;
 @Service
 public class PatientServiceImpl implements PatientService{
 
+	//获取与数据库交互的对象
+	//自动注入
+	@Autowired
+	PatientMapper patientMapper;
 	@Override
-	public List<Reg> assfind() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Reg> assfind(long idcard) {
+		List<Reg> reglist=patientMapper.load(idcard);
+		return reglist;
 	}
 
 	

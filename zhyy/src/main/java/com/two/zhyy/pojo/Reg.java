@@ -13,18 +13,26 @@ public class Reg {
 	private Integer regid;
 	
 	//挂号时间
-	private Data regtime;
+	private String regtime;
 	
 	//挂号状态
 	private String regstate;
 	
 	private Log log;//交易日志（外键）
 	
-	private Users users;//用户（外键）
+	private Userdt userdt;//患者（外键）
 	
 	private Doctor doctor;//医师（外键）
 	
 	private Drecord drecord;//医师记录（外键）
+
+	public Userdt getUserdt() {
+		return userdt;
+	}
+
+	public void setUserdt(Userdt userdt) {
+		this.userdt = userdt;
+	}
 
 	public Integer getRegid() {
 		return regid;
@@ -34,11 +42,11 @@ public class Reg {
 		this.regid = regid;
 	}
 
-	public Data getRegtime() {
+	public String getRegtime() {
 		return regtime;
 	}
 
-	public void setRegtime(Data regtime) {
+	public void setRegtime(String regtime) {
 		this.regtime = regtime;
 	}
 
@@ -56,14 +64,6 @@ public class Reg {
 
 	public void setLog(Log log) {
 		this.log = log;
-	}
-
-	public Users getUsers() {
-		return users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
 	}
 
 	public Doctor getDoctor() {

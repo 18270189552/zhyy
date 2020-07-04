@@ -12,6 +12,6 @@ import com.two.zhyy.pojo.Reg;
 public interface PatientService {
 
 	//定义获取指定患者病史
-	List<Reg> assfind();
+	List<Reg> assfind(long idcard);
 	
 }
