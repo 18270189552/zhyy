@@ -1,7 +1,5 @@
 package com.two.zhyy.pojo;
 
-import javax.xml.crypto.Data;
-
 /**
  * 挂号
  * @author 刘松杰
@@ -13,14 +11,17 @@ public class Reg {
 	private Integer regid;
 	
 	//挂号时间
-	private Data regtime;
+	private String regtime;
 	
 	//挂号状态
 	private String regstate;
 	
 	private Log log;//交易日志（外键）
 	
+
 	private Doctordt doctordt; //医师
+
+	private Userdt userdt;//患者（外键）
 	
 	private Drecord drecord;//医师记录（外键）
 	
@@ -35,6 +36,14 @@ public class Reg {
 		this.udt = udt;
 	}
 
+	public Userdt getUserdt() {
+		return userdt;
+	}
+
+	public void setUserdt(Userdt userdt) {
+		this.userdt = userdt;
+	}
+
 	public Integer getRegid() {
 		return regid;
 	}
@@ -43,11 +52,11 @@ public class Reg {
 		this.regid = regid;
 	}
 
-	public Data getRegtime() {
+	public String getRegtime() {
 		return regtime;
 	}
 
-	public void setRegtime(Data regtime) {
+	public void setRegtime(String regtime) {
 		this.regtime = regtime;
 	}
 
@@ -67,12 +76,14 @@ public class Reg {
 		this.log = log;
 	}
 
+
 	public Doctordt getDoctordt() {
 		return doctordt;
 	}
 
 	public void setDoctordt(Doctordt doctordt) {
 		this.doctordt = doctordt;
+
 	}
 
 	public Drecord getDrecord() {

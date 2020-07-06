@@ -11,7 +11,7 @@ public class Userdt {
 	
 	private String name;  //挂号人姓名
 	
-	private String  ldcard;  //挂号人身份证
+	private String  idcard;  //挂号人身份证
 	
 	private String  phone;  //挂号人电话
 	
@@ -37,12 +37,12 @@ public class Userdt {
 		this.name = name;
 	}
 
-	public String getLdcard() {
-		return ldcard;
+	public String getIdcard() {
+		return idcard;
 	}
 
-	public void setLdcard(String ldcard) {
-		this.ldcard = ldcard;
+	public void setIdcard(String idcard) {
+		this.idcard = idcard;
 	}
 
 	public String getPhone() {

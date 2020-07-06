@@ -79,8 +79,13 @@ public interface RegMapper {
 	 * @param id
 	 * @return
 	 */
-	@Select("SELECT * FROM drecord WHERE drid = #{id};")
+	@Select("SELECT * FROM drecord AS dr,reg WHERE dr.`regid` = reg.`regid` AND  dr.`regid` = #{id};")
+	@Results(@Result(column = "regid",property = "reg",javaType = Reg.class,one = @One(select = "com.two.zhyy.admin.mapper.RegMapper.findByidReg")))
 	Drecord findByIdDrecord(int id);
+	
+	
+	@Select("SELECT * FROM reg,drecord AS dr WHERE reg.`drid` = dr.`drid` AND reg.`regid` = #{id};")
+	Reg findByidReg(int id);
 	
 	
 }

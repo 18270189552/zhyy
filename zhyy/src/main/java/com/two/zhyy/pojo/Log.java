@@ -2,7 +2,6 @@ package com.two.zhyy.pojo;
 
 import java.math.BigDecimal;
 
-import javax.xml.crypto.Data;
 /**
  * 交易日志实体类
  * @author 刘松杰
@@ -14,7 +13,7 @@ public class Log {
 	private Integer logid;
 	
 	//交易时间
-	private Data logtime;
+	private String logtime;
 	
 	//交易状态
 	private String  logstate;
@@ -24,20 +23,20 @@ public class Log {
 
 	//挂号id（外键）
 	private Reg reg;
-	
-	public int getLogid() {
+
+	public Integer getLogid() {
 		return logid;
 	}
 
-	public void setLogid(int logid) {
+	public void setLogid(Integer logid) {
 		this.logid = logid;
 	}
 
-	public Data getLogtime() {
+	public String getLogtime() {
 		return logtime;
 	}
 
-	public void setLogtime(Data logtime) {
+	public void setLogtime(String logtime) {
 		this.logtime = logtime;
 	}
 
@@ -56,5 +55,14 @@ public class Log {
 	public void setLogprice(BigDecimal logprice) {
 		this.logprice = logprice;
 	}
+
+	public Reg getReg() {
+		return reg;
+	}
+
+	public void setReg(Reg reg) {
+		this.reg = reg;
+	}
+	
 
 }
