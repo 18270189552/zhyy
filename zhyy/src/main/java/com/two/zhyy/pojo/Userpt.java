@@ -12,35 +12,21 @@ public class Userpt {
 
 	private Integer ptid;  //权限id
 	
-	private Integer patient;  //患者 1
-	
-	private Integer doctor;  //医师 2
-	
-	private Integer admin;  //管理员 3
-	public int getPtid() {
+	private Integer prole;  //患者 1
+
+	public Integer getPtid() {
 		return ptid;
 	}
-	public void setPtid(int ptid) {
+
+	public void setPtid(Integer ptid) {
 		this.ptid = ptid;
 	}
-	public int getPatient() {
-		return patient;
+
+	public Integer getProle() {
+		return prole;
 	}
-	public void setPatient(int patient) {
-		this.patient = patient;
+
+	public void setProle(Integer prole) {
+		this.prole = prole;
 	}
-	public int getDoctor() {
-		return doctor;
-	}
-	public void setDoctor(int doctor) {
-		this.doctor = doctor;
-	}
-	public int getAdmin() {
-		return admin;
-	}
-	public void setAdmin(int admin) {
-		this.admin = admin;
-	}
-	
-	
 }
