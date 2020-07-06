@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.two.zhyy.doctor.service.DoctorService;
+import com.two.zhyy.pojo.Reg;
 import com.two.zhyy.pojo.Userdt;
 
 @RestController
@@ -20,7 +21,7 @@ public class DoctorController {
 	DoctorService doctorService;
 	
 	@GetMapping("/{id}")
-	public List<Userdt> found(@PathVariable String id){
+	public List<Reg> found(@PathVariable String id){
 		return doctorService.find(id);
 	}
 }
