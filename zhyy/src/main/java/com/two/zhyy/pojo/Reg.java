@@ -6,7 +6,7 @@ package com.two.zhyy.pojo;
  *
  */
 public class Reg {
-	
+	//
 	//逻辑主键
 	private Integer regid;
 	
