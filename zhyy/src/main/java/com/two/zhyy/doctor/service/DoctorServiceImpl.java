@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.two.zhyy.doctor.mapper.DoctorMapper;
+import com.two.zhyy.pojo.Reg;
 import com.two.zhyy.pojo.Userdt;
 
 @Service
@@ -16,7 +17,7 @@ public class DoctorServiceImpl implements DoctorService {
 	
 
 	@Override
-	public List<Userdt> find(String id) {
+	public List<Reg> find(String id) {
 		
 		return DoctorMapper.findAll(id);
 	}

@@ -8,7 +8,8 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
-import com.two.zhyy.pojo.Doctor;
+import com.two.zhyy.pojo.Doctordt;
+import com.two.zhyy.pojo.Drecord;
 import com.two.zhyy.pojo.Reg;
 import com.two.zhyy.pojo.Userdt;
 import com.two.zhyy.pojo.Users;
@@ -17,17 +18,27 @@ import com.two.zhyy.pojo.Users;
 public interface DoctorMapper {
 
 	//查询对应医生id下的患者信息
-	@Select("SELECT * FROM users u,userdt dt,reg r,doctor d WHERE u.id=r.udtid AND r.`udtid`=d.`docid` AND dt.id=u.id AND  d.`docid`=#{id}")
+	@Select("SELECT * FROM reg,userdt AS udt,doctordt AS dt,drecord AS dr WHERE reg.`udtid` = udt.`udtid` AND reg.ddtid = dt.`ddtid` AND reg.`drid` = dr.`drid` AND reg.`ddtid`=#{id}")
 	@Results({
-		@Result(column = "userpt",property = "userpt"),
-		@Result(column = "users",property = "users"),
-		@Result(column = "drecord",property = "drecord"),
-		@Result(column = "docid",property = "docid")
-	     	
+		@Result(column = "udtid",property = "userdt",javaType = Userdt.class,
+				one = @One(select = "com.two.zhyy.doctor.mapper.DoctorMapper.findByIdUserdt")),
+		
+		@Result(column = "ddtid",property = "doctordt",javaType = Doctordt.class,
+		one = @One(select = "com.two.zhyy.doctor.mapper.DoctorMapper.findByIdDoctordt")),
+		
+
+		@Result(column = "drid",property = "drecord",javaType = Drecord.class,
+		one = @One(select = "com.two.zhyy.doctor.mapper.DoctorMapper.findByIdDrecord"))
 	})
-	List<Userdt> findAll(String id);
-	
-	//添加患者的诊断结果
+	List<Reg> findAll(String id);
 	
 	
+	@Select("select * from userdt where udtid = #{id}")
+	Userdt findByIdUserdt(int id);
+	
+	@Select("select * from doctordt where ddtid = #{id}")
+	Doctordt findByIdDoctordt(int id);
+	
+	@Select("select * from drecord where drid = #{id}")
+	Drecord findByIdDrecord(int id);
 }
