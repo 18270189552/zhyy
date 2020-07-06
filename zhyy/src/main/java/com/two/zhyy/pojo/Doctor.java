@@ -1,5 +1,7 @@
 package com.two.zhyy.pojo;
 
+import java.math.BigDecimal;
+
 /**
  * 医师实体类
  * @author 刘松杰
@@ -11,7 +13,7 @@ public class Doctor {
 	
 	private String rank;//医师级别
 	
-	private Double rprice;//挂号价格
+	private BigDecimal rprice;//挂号价格
 	
 	public Integer getDocid() {
 		return docid;
@@ -29,11 +31,11 @@ public class Doctor {
 		this.rank = rank;
 	}
 
-	public Double getRprice() {
+	public BigDecimal getRprice() {
 		return rprice;
 	}
 
-	public void setRprice(Double rprice) {
+	public void setRprice(BigDecimal rprice) {
 		this.rprice = rprice;
 	}
 

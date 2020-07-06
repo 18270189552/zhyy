@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.two.zhyy.patient.service.PatientService;
 import com.two.zhyy.pojo.Log;
+import com.two.zhyy.pojo.Medicalcard;
 import com.two.zhyy.pojo.Reg;
+import com.two.zhyy.pojo.Userdt;
+import com.two.zhyy.pojo.Users;
 
 
 
@@ -46,15 +49,37 @@ public class PatientController {
 		patientService.update(reg);
 	}
 	
+	//定义添加日志表（交易时间,交易状态,交易价格,reg:挂号id（外键））
 	@PostMapping
 	public void insert(
 			@RequestBody Log log) {
 		System.out.println("日志记录==============================="+log.getReg().getRegid()+":--"+log.getLogtime()+",--"+log.getLogstate()+":--"+log.getLogprice());
 		patientService.createLog(log);
 	}
-//	@GetMapping("/")
-//	public String heom() {
-//		return "撒地方乐山大佛那就";
-//	}
+	
+	//定义添加用户信息表的信息
+	@PostMapping("/users")
+	public void insertUsers(
+			@RequestBody Users users) {
+		System.out.println("添加用户信息===================");
+		patientService.insertUsers(users);
+	}
+	
+	//定义添加患者表的信息
+	@PostMapping("/userdt")
+	public int insertUserdt(
+			@RequestBody Userdt userdt) {
+		patientService.insertUserdt(userdt);
+		System.out.println("患者表的信息==============="+userdt.getUdtid());
+		return userdt.getUdtid();
+	}
+	
+	//定义添加卡号的信息
+	@PostMapping("/card")
+	public void insertcard(
+			@RequestBody Medicalcard card) {
+		System.out.println("添加卡号==============");
+		patientService.insertcard(card);
+	}
 	
 }

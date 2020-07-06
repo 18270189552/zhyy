@@ -15,9 +15,28 @@ public class Medicalcard {
 	//金额
 	private BigDecimal money;
 	
+	//卡号
+	private String mcard;
+	
 	//用户id 外键
 	private Users users;
 	
+	public String getMcard() {
+		return mcard;
+	}
+
+	public void setMcard(String mcard) {
+		this.mcard = mcard;
+	}
+
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
 	public Medicalcard() {
 	}
 	
