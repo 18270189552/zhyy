@@ -21,17 +21,12 @@ public interface RegService {
 	 * @param id
 	 * @return
 	 */
-	Reg findByid(int id);
+	Reg findByid(long id);
+	
 	
 	/**
-	 * 修改挂号信息
-	 * @param r
+	 * 删除挂号信息
+	 * @param id
 	 */
-	void update(Reg r);
-	
-	/**
-	 * 修改挂号信息
-	 * @param r
-	 */
-	void insertReg(Reg r);
+	int delete(int id);
 }

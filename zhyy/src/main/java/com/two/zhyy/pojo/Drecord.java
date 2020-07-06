@@ -3,6 +3,7 @@ package com.two.zhyy.pojo;
 /**
  * 医师记录实体类
  * @author 刘松杰
+ * @param <E>
  *
  */
 public class Drecord {
@@ -18,7 +19,7 @@ public class Drecord {
 	private String symptom;
 	
 	//处理类型
-	private String type;
+	private String types;
 
 	//挂号Id(外键)
 	private Reg reg;
@@ -47,12 +48,12 @@ public class Drecord {
 		this.symptom = symptom;
 	}
 
-	public String getType() {
-		return type;
+	public String getTypes() {
+		return types;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setTypes(String types) {
+		this.types = types;
 	}
 
 	public Reg getReg() {

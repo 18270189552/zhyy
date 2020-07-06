@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,26 +42,19 @@ public class RegistrationController {
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public Reg findById() {
-		return new Reg();
+	public Reg findById(@PathVariable long id) {
+		return rs.findByid(id);
 	}
 	
 	/**
 	 * 删除挂号信息
 	 */	
 	@DeleteMapping("/{id}")
-	public void del() {
-		
+	public int del(@PathVariable int id) {
+		return rs.delete(id);
 	}
 	
-	/**
-	 * 修改挂号信息
-	 * @param reg
-	 */
-	@PutMapping
-	public void updata(@RequestBody Reg reg) {
-		
-	}
+	
 	
 	
 }

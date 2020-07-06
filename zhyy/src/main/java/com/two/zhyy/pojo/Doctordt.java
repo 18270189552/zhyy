@@ -7,8 +7,6 @@ package com.two.zhyy.pojo;
  */
 public class Doctordt {
 	
-	
-
 	private Integer ddtid;//医师详细id
 	
 	private String dintroduce;//医师介绍
@@ -17,9 +15,9 @@ public class Doctordt {
 	
 	private String dsex;//医师性别
 
-    Integer docid;//医生id（外键）
+    private Doctor docid;//医生等级id（外键）
     
-    private String illid;//科室
+    private Illness illid;//科室
     
 	public Integer getDdtid() {
 		return ddtid;
@@ -53,19 +51,19 @@ public class Doctordt {
 		this.dsex = dsex;
 	}
 
-	public Integer getDocid() {
+	public Doctor getDocid() {
 		return docid;
 	}
 
-	public void setDocid(Integer docid) {
+	public void setDocid(Doctor docid) {
 		this.docid = docid;
 	}
 
-	public String getIllid() {
+	public Illness getIllid() {
 		return illid;
 	}
 
-	public void setIllid(String illid) {
+	public void setIllid(Illness illid) {
 		this.illid = illid;
 	}
 

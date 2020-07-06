@@ -21,26 +21,18 @@ public class RegServiceImpl implements RegService{
 	
 	@Override
 	public List<Reg> findByAll() {
-		// TODO Auto-generated method stub
 		return rm.findByAllReg();
 	}
 
 	@Override
-	public Reg findByid(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Reg findByid(long id) {
+		
+		return rm.findByIdReg(id);
 	}
 
 	@Override
-	public void update(Reg r) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void insertReg(Reg r) {
-		// TODO Auto-generated method stub
-		
+	public int delete(int id) {
+		 return rm.delete(id);
 	}
 
 }

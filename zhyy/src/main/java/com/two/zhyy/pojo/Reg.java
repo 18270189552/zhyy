@@ -25,17 +25,10 @@ public class Reg {
 	
 	private Drecord drecord;//医师记录（外键）
 	
-	private Userdt udt;
+	
 	
 
-	public Userdt getUdt() {
-		return udt;
-	}
-
-	public void setUdt(Userdt udt) {
-		this.udt = udt;
-	}
-
+	
 	public Userdt getUserdt() {
 		return userdt;
 	}
