@@ -20,11 +20,20 @@ public class Reg {
 	
 	private Log log;//交易日志（外键）
 	
-	private Users users;//用户（外键）
-	
-	private Doctor doctor;//医师（外键）
+	private Doctordt doctordt; //医师
 	
 	private Drecord drecord;//医师记录（外键）
+	
+	private Userdt udt;
+	
+
+	public Userdt getUdt() {
+		return udt;
+	}
+
+	public void setUdt(Userdt udt) {
+		this.udt = udt;
+	}
 
 	public Integer getRegid() {
 		return regid;
@@ -58,20 +67,12 @@ public class Reg {
 		this.log = log;
 	}
 
-	public Users getUsers() {
-		return users;
+	public Doctordt getDoctordt() {
+		return doctordt;
 	}
 
-	public void setUsers(Users users) {
-		this.users = users;
-	}
-
-	public Doctor getDoctor() {
-		return doctor;
-	}
-
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public void setDoctordt(Doctordt doctordt) {
+		this.doctordt = doctordt;
 	}
 
 	public Drecord getDrecord() {
