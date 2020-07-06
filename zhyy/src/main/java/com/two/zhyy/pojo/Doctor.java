@@ -13,9 +13,6 @@ public class Doctor {
 	
 	private Double rprice;//挂号价格
 	
-	private Doctordt doctordt;	//医生详细id（外键）
-	
-	private Illness illness;	//子科室id（外键）
 	public Integer getDocid() {
 		return docid;
 	}
@@ -40,20 +37,6 @@ public class Doctor {
 		this.rprice = rprice;
 	}
 
-	public Doctordt getDoctordt() {
-		return doctordt;
-	}
-
-	public void setDoctordt(Doctordt doctordt) {
-		this.doctordt = doctordt;
-	}
-
-	public Illness getIllness() {
-		return illness;
-	}
-
-	public void setIllness(Illness illness) {
-		this.illness = illness;
-	}
+	
 	
 }
