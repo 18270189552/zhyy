@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.two.zhyy.patient.exception.NoMoneyException;
 import com.two.zhyy.patient.service.PatientService;
 import com.two.zhyy.pojo.Log;
 import com.two.zhyy.pojo.Medicalcard;
@@ -32,6 +34,8 @@ public class PatientController {
 	@Autowired
 	PatientService patientService;
 	
+	private String msg;
+	
 	//获取指定的患者病史
 	@GetMapping("/{idcard}")
 	public List<Reg> findByid(@PathVariable long idcard){
@@ -53,7 +57,7 @@ public class PatientController {
 	@PostMapping
 	public void insert(
 			@RequestBody Log log) {
-		System.out.println("日志记录==============================="+log.getReg().getRegid()+":--"+log.getLogtime()+",--"+log.getLogstate()+":--"+log.getLogprice());
+		System.out.println("日志记录==============================="+":--"+log.getLogtime()+",--"+log.getLogstate()+":--"+log.getLogprice());
 		patientService.createLog(log);
 	}
 	
@@ -82,4 +86,18 @@ public class PatientController {
 		patientService.insertcard(card);
 	}
 	
+	//定义添加挂号的信息
+	@PostMapping("/reg")
+	public String seleReg(
+			@RequestBody Reg reg) {
+		System.out.println("添加挂号================");
+		try {
+			patientService.insertReg(reg);
+		} catch (NoMoneyException e) {
+			// TODO Auto-generated catch block
+			msg = e.getMessage();
+			System.err.println(e.getMessage());
+		}
+		return msg;
+	}
 }

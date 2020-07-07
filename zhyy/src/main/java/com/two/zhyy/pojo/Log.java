@@ -22,7 +22,7 @@ public class Log {
 	private BigDecimal logprice;
 
 	//挂号id（外键）
-	private Reg reg;
+	private Userdt userdt;
 
 	public Integer getLogid() {
 		return logid;
@@ -56,13 +56,12 @@ public class Log {
 		this.logprice = logprice;
 	}
 
-	public Reg getReg() {
-		return reg;
+	public Userdt getUserdt() {
+		return userdt;
 	}
 
-	public void setReg(Reg reg) {
-		this.reg = reg;
+	public void setUserdt(Userdt userdt) {
+		this.userdt = userdt;
 	}
-	
 
 }

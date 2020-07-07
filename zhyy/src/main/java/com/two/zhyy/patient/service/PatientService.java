@@ -3,6 +3,7 @@ package com.two.zhyy.patient.service;
 
 import java.util.List;
 
+import com.two.zhyy.patient.exception.NoMoneyException;
 import com.two.zhyy.pojo.Log;
 import com.two.zhyy.pojo.Medicalcard;
 import com.two.zhyy.pojo.Reg;
@@ -34,5 +35,5 @@ public interface PatientService {
 	void insertcard(Medicalcard card);
 	
 	//定义添加患者挂号表信息
-	void insertReg(Reg reg);
+	void insertReg(Reg reg) throws NoMoneyException;
 }

@@ -1,13 +1,22 @@
 package com.two.zhyy.patient.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import javax.print.attribute.standard.MediaSize.Other;
+
+import org.hibernate.result.NoMoreReturnsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.two.zhyy.patient.exception.NoMoneyException;
 import com.two.zhyy.patient.mapper.PatientMapper;
+import com.two.zhyy.pojo.Doctor;
+import com.two.zhyy.pojo.Doctordt;
 import com.two.zhyy.pojo.Log;
 import com.two.zhyy.pojo.Medicalcard;
 import com.two.zhyy.pojo.Reg;
@@ -69,25 +78,43 @@ public class PatientServiceImpl implements PatientService{
 	}
 	
 	//定义添加患者挂号表信息
+	//开启事务
+	@Transactional(rollbackFor = {NoMoneyException.class},isolation = Isolation.SERIALIZABLE)
 	@Override
-	public void insertReg(Reg reg) {
+	public void insertReg(Reg reg) throws NoMoneyException {
+		patientMapper.insertReg(reg);
+		//获取医师信息对象
+		Doctordt doctordt=patientMapper.selectDoct(reg.getDoctordt().getDdtid());
+		//获取患者与用户对象
+		Userdt userdt=patientMapper.userdtload(reg.getUserdt().getUdtid());
 		//定义日志对象
 		Log log=new Log();
-		log.setReg(reg);
+		log.setUserdt(userdt);
 		log.setLogtime(reg.getRegtime());
 		log.setLogstate(reg.getRegstate());
-		log.setLogprice(reg.getDoctordt().getDocid().getRprice());
+		log.setLogprice(doctordt.getDocid().getRprice());
 		PatientServiceImpl ohen=cont.getBean(PatientServiceImpl.class);
 		//嵌套调用了另一个方法
-		createLog(log);
-		patientMapper.insertReg(reg);
+		ohen.createLog(log);
+		//患者表的日志互相对应
+		patientMapper.updaMed(log.getLogid(), reg.getRegid());
+		int from=userdt.getUsers().getMedicalcard().getMcid();
+		BigDecimal money=doctordt.getDocid().getRprice();
+		//获取卡号的余额
+		BigDecimal bigDecimal=patientMapper.selectcards(from);
+		//判断卡号余额是否充足
+		if(bigDecimal.subtract(money).doubleValue()<0) {
+			throw new NoMoneyException(from, money);
+		}
+		//对应的卡号余额进行减少
+		patientMapper.updatecard(from, money.negate());
 	}
 
 
 	//定义添加日志表（交易时间,交易状态,交易价格,reg:挂号id（外键））
 	//事务的传播行为
 	//挂起原事务，创建一个独立的新事务，与外部事务回滚不影响它的执行
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void createLog(Log log) {
 		patientMapper.insert(log);
 	}
