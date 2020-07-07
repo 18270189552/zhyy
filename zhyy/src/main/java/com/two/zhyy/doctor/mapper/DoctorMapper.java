@@ -2,17 +2,20 @@ package com.two.zhyy.doctor.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.One;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.two.zhyy.pojo.Doctordt;
 import com.two.zhyy.pojo.Drecord;
 import com.two.zhyy.pojo.Reg;
 import com.two.zhyy.pojo.Userdt;
-import com.two.zhyy.pojo.Users;
 
 @Mapper
 public interface DoctorMapper {
@@ -41,4 +44,14 @@ public interface DoctorMapper {
 	
 	@Select("select * from drecord where drid = #{id}")
 	Drecord findByIdDrecord(int id);
+	
+	//添加诊断结果
+	@Insert("INSERT INTO drecord(regid,recipe,symptom,types)VALUES(#{regid},#{recipe},#{symptom},#{types})")
+	int save(Drecord drecord);
+	
+	
+	//修改诊断结果
+	@Update("UPDATE reg SET drid=#{drid},regstate=#{regstate} WHERE regid=#{id}")
+	int update(@Param("id")Integer id, @Param("drid") Integer drid,@Param("regstate")String stat);
+	
 }
