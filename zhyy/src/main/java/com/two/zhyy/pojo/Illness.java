@@ -13,7 +13,6 @@ public class Illness {
 	
 	private Section section;	//科室外键
 	
-
 	public Section getSection() {
 		return section;
 	}
