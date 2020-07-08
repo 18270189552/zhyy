@@ -1,7 +1,13 @@
 package com.two.zhyy.patient.service;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.print.attribute.standard.MediaSize.Other;
 
@@ -17,11 +23,14 @@ import com.two.zhyy.patient.exception.NoMoneyException;
 import com.two.zhyy.patient.mapper.PatientMapper;
 import com.two.zhyy.pojo.Doctor;
 import com.two.zhyy.pojo.Doctordt;
+import com.two.zhyy.pojo.Illness;
 import com.two.zhyy.pojo.Log;
 import com.two.zhyy.pojo.Medicalcard;
 import com.two.zhyy.pojo.Reg;
+import com.two.zhyy.pojo.Section;
 import com.two.zhyy.pojo.Userdt;
 import com.two.zhyy.pojo.Users;
+import com.two.zhyy.pojo.Working;
 
 /**
  * 业务逻辑的实现类
@@ -118,6 +127,117 @@ public class PatientServiceImpl implements PatientService{
 	public void createLog(Log log) {
 		patientMapper.insert(log);
 	}
+	
+	//-------------------------------------------------------------
+	@Override
+	public List<Section> sectionAll() {
+		return patientMapper.sectionAll();
+	}
+
+	@Override
+	public List<Illness> illnesseId(String seid) {
+		return patientMapper.illnessId(seid);
+	}
+
+	@Override
+	public List<Doctordt> doctorId(String illid) {
+		return patientMapper.DoctorId(illid);
+	}
+
+
+	@Override
+	public Map<String, Object> doctorWorking(String ddtid) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		//显示当前星期几
+		SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+		Working workings = null;
+		Map<String, Object> map = new HashMap<>();
+			Date date;
+			try {
+				date = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+			long l = date.getTime();
+			for(int i = 0; i < 14 ; i++) {
+				//一天
+				l+=86400000;
+				//时间戳转字符串
+				String da =simpleDateFormat.format(l);
+				
+				//获取星期几
+				Date parse = simpleDateFormat.parse(da);
+				String time = dateFm.format(parse);
+				
+				//获取指定医师值班信息
+				workings = patientMapper.DoctorWorking(ddtid);
+				//那天值班
+				String data = workings.getData();
+				String[] split = data.split(",");
+				//System.out.println(""+time);
+				for(String s:split) {
+					if(s.equals(time)) {
+						map.put(da, workings);
+					}
+				}
+				
+			}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		return map;
+	}
+
+	//
+	@Override
+	public Map<String, List<Doctordt>> doctorTime(String illid) {
+		Map<String, List<Doctordt>> map = new HashMap<>();
+		//获取科室值班医师信息
+		List<Doctordt> doctorData = patientMapper.DoctorData(illid);
+		
+		Date date=new Date();
+		
+		//显示当前星期几
+		SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+		String time = "";
+		
+		//获取当前日期
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+		//字符串	时间转字符串
+		String day = formatter.format(date);
+		
+		//获取当前时间转时间戳
+		Date date2 = null;
+		try {
+			date2 = formatter.parse(formatter.format(date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		//date转时间戳
+		long l = date2.getTime();
+		for(int i = 0; i < 14 ; i++) {
+			List<Doctordt> doctor = new ArrayList<>();
+			String str = formatter.format(l);
+			l+=86400000;
+			try {
+				Date parse = formatter.parse(str);
+				time = dateFm.format(parse);
+				for(int j=0;j<doctorData.size();j++) {
+					Working workings = patientMapper.workings(doctorData.get(j).getDdtid().toString());
+					String[] split = workings.getData().split(",");
+					for(int k =0;k<split.length;k++) {
+						if(split[k].equals(time)) {
+							doctor.add(doctorData.get(j));
+						}
+					}
+				}
+				map.put(str, doctor);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		return map;
+	}
+	
 	
 	
 }
