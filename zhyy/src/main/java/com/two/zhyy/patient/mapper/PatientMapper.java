@@ -16,11 +16,14 @@ import org.apache.ibatis.annotations.Update;
 
 import com.two.zhyy.pojo.Doctor;
 import com.two.zhyy.pojo.Doctordt;
+import com.two.zhyy.pojo.Illness;
 import com.two.zhyy.pojo.Log;
 import com.two.zhyy.pojo.Medicalcard;
 import com.two.zhyy.pojo.Reg;
+import com.two.zhyy.pojo.Section;
 import com.two.zhyy.pojo.Userdt;
 import com.two.zhyy.pojo.Users;
+import com.two.zhyy.pojo.Working;
 
 /**
  * 定义SQL与数据库的交互
@@ -122,6 +125,102 @@ public interface PatientMapper {
 	//定义患者的日志信息
 	@Update("UPDATE reg r SET r.`logid`=#{logid} WHERE r.regid=#{regid}")
 	void updaMed(@Param("logid") int logid,@Param("regid") int regid);
+	
+	
+	//---------------------------------------------------------------
+	/**
+	 * 一级科室
+	 * @param seid
+	 * @return	科室
+	 */
+	@Select("select * from section where seid=#{id}")
+	Section sectionLoad(String seid);
+	
+	/**
+	 * 二级科室
+	 * @param illid
+	 * @return
+	 */
+	@Select("SELECT * FROM illness WHERE illid = #{id}")
+	@Results(
+			@Result(column = "seid",property = "section",javaType = Section.class,one = @One(select = "sectionLoad"))
+	)
+	Illness illnessLoad(String illid);
+	
+	/**
+	 * 医师级别
+	 * @param docid
+	 * @return
+	 */
+	@Select("SELECT * FROM doctor WHERE docid = #{docid}")
+	Doctor doctorLoad(String docid);
+	
+	@Select("SELECT * FROM Doctordt WHERE ddtid = #{ddtid}")
+	@Results({
+		@Result(column = "docid",property = "docid",javaType = Doctor.class,one=@One(select = "doctorLoad")),
+		@Result(column = "illid",property = "illid",javaType = Illness.class,one=@One(select = "illnessLoad"))
+	})
+	Doctordt doctordtLoad(String ddtid);
+
+	@Select("SELECT * FROM working WHERE ddtid = #{ddtid}")
+	Working workings(String ddtid);
+	
+	
+	
+	/**
+	 * 显示所有一级科室信息
+	 * @return	一级科室集合
+	 */
+	@Select("SELECT * FROM section")
+	List<Section> sectionAll();
+	
+	/**
+	 * 显示一级科室下的二级科室信息
+	 * @param illid
+	 * @return	二级科室集合
+	 */
+	@Select("SELECT * FROM illness WHERE seid = #{seid}")
+	@Results({
+		@Result(column = "seid",property = "section",javaType = Section.class,one = @One(select = "sectionLoad"))
+	})
+	List<Illness> illnessId(String seid);
+	
+	/**
+	 * 显示指定科室的所有医师
+	 * @param illid
+	 * @return 医师集合
+	 */
+	@Select("SELECT * FROM doctordt WHERE illid = #{illid}")
+	@Results({
+		@Result(column = "illid",property = "illid",javaType = Illness.class,one=@One(select = "illnessLoad")),
+		@Result(column = "docid",property = "docid",javaType = Doctor.class,one=@One(select = "doctorLoad"))
+	})
+	List<Doctordt> DoctorId(String illid);
+	
+	/**
+	 * 显示指定科室的排班
+	 * @param illid	科室的id
+	 * @param data	时间
+	 * @return	值班医师信息
+	 */
+	@Select("SELECT * FROM doctordt dt LEFT JOIN working w ON dt.ddtid = w.ddtid WHERE dt.illid=#{illid}")
+	@Results({
+		@Result(column = "illid",property = "illid",javaType = Illness.class,one=@One(select = "illnessLoad")),
+		@Result(column = "docid",property = "docid",javaType = Doctor.class,one=@One(select = "doctorLoad"))
+	})
+	List<Doctordt> DoctorData(@Param(value = "illid") String illid);
+	
+	/**
+	 * 显示指定医师的排班
+	 * @param ddtid	医师id
+	 * @param data	时间
+	 * @return 排班信息
+	 */
+	@Select("SELECT * FROM working WHERE ddtid = #{ddtid};")
+	@Results({
+		@Result(column = "ddtid",property = "doctordt",javaType = Doctordt.class,one = @One(select = "doctordtLoad"))
+	})
+	Working DoctorWorking(@Param(value = "ddtid") String ddtid);
 	
 	
 }

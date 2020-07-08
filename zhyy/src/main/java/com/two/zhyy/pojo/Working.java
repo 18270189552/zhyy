@@ -11,8 +11,7 @@ public class Working {
 	private Integer workid;  //排班id
 	private String data;  //排班日期
 	private Integer number;  //最大诊断人数
-	private Doctor doctor;	//医师
-	
+	private Doctordt doctordt;	//医师
 	public Integer getWorkid() {
 		return workid;
 	}
@@ -31,10 +30,12 @@ public class Working {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	public Doctor getDoctor() {
-		return doctor;
+	public Doctordt getDoctordt() {
+		return doctordt;
 	}
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public void setDoctordt(Doctordt doctordt) {
+		this.doctordt = doctordt;
 	}
+	
+	
 }
