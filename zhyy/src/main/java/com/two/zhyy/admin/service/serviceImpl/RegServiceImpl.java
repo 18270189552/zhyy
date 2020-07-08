@@ -26,7 +26,6 @@ public class RegServiceImpl implements RegService{
 
 	@Override
 	public Reg findByid(long id) {
-		
 		return rm.findByIdReg(id);
 	}
 
@@ -34,5 +33,4 @@ public class RegServiceImpl implements RegService{
 	public int delete(int id) {
 		 return rm.delete(id);
 	}
-
 }
