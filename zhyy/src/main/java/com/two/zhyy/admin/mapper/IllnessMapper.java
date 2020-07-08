@@ -51,4 +51,11 @@ public interface IllnessMapper {
 				,one = @One(select = "com.two.zhyy.admin.mapper.IllnessMapper.findSectById"))
 	})
 	List<Illness> findBySeid(int id);
+	
+	@Select("select * from illness ill,section sec where ill.seid=sec.seid and sec.sectionname=#{name}")
+	@Results({
+		@Result(column = "seid",property = "section",javaType = Section.class
+				,one = @One(select = "com.two.zhyy.admin.mapper.IllnessMapper.findSectById"))
+	})
+	List<Illness> findName(String name);
 }
