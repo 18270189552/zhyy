@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.two.zhyy.patient.exception.NoMoneyException;
+import com.two.zhyy.patient.exception.OverLoadException;
 import com.two.zhyy.pojo.Doctordt;
 import com.two.zhyy.pojo.Illness;
 import com.two.zhyy.pojo.Log;
@@ -39,7 +40,7 @@ public interface PatientService {
 	void insertcard(Medicalcard card);
 	
 	//定义添加患者挂号表信息
-	void insertReg(Reg reg) throws NoMoneyException;
+	void insertReg(Reg reg) throws NoMoneyException, OverLoadException;
 	
 	//--------------------------------------------------
 	//显示一级科室信息

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.two.zhyy.patient.exception.NoMoneyException;
+import com.two.zhyy.patient.exception.OverLoadException;
 import com.two.zhyy.patient.service.PatientService;
 import com.two.zhyy.pojo.Doctordt;
 import com.two.zhyy.pojo.Illness;
@@ -99,6 +100,9 @@ public class PatientController {
 			patientService.insertReg(reg);
 		} catch (NoMoneyException e) {
 			// TODO Auto-generated catch block
+			msg = e.getMessage();
+			System.err.println(e.getMessage());
+		} catch (OverLoadException e) {
 			msg = e.getMessage();
 			System.err.println(e.getMessage());
 		}

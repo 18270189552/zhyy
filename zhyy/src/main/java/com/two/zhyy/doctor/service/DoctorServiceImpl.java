@@ -1,5 +1,7 @@
 package com.two.zhyy.doctor.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,9 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public List<Reg> find(String id) {
-		
-		return DoctorMapper.findAll(id);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		return DoctorMapper.findAll(id,simpleDateFormat.format(date));
 	}
 
 

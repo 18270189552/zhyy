@@ -21,7 +21,7 @@ import com.two.zhyy.pojo.Userdt;
 public interface DoctorMapper {
 
 	//查询对应医生id下的患者信息
-	@Select("SELECT * FROM reg,userdt AS udt,doctordt AS dt,drecord AS dr WHERE reg.`udtid` = udt.`udtid` AND reg.ddtid = dt.`ddtid` AND reg.`drid` = dr.`drid` AND reg.`ddtid`=#{id}")
+	@Select("SELECT * FROM reg,userdt AS udt,doctordt AS dt WHERE reg.`udtid` = udt.`udtid` AND reg.ddtid = dt.`ddtid` AND reg.`ddtid`=#{id} AND reg.`regstate` != 0 AND TO_DAYS(reg.`regtime`)=TO_DAYS(#{time})")
 	@Results({
 		@Result(column = "udtid",property = "userdt",javaType = Userdt.class,
 				one = @One(select = "com.two.zhyy.doctor.mapper.DoctorMapper.findByIdUserdt")),
@@ -33,7 +33,7 @@ public interface DoctorMapper {
 		@Result(column = "drid",property = "drecord",javaType = Drecord.class,
 		one = @One(select = "com.two.zhyy.doctor.mapper.DoctorMapper.findByIdDrecord"))
 	})
-	List<Reg> findAll(String id);
+	List<Reg> findAll(@Param("id")String id,@Param("time")String time);
 	
 	
 	@Select("select * from userdt where udtid = #{id}")

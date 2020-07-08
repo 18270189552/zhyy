@@ -19,7 +19,9 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.two.zhyy.doctor.mapper.DoctorMapper;
 import com.two.zhyy.patient.exception.NoMoneyException;
+import com.two.zhyy.patient.exception.OverLoadException;
 import com.two.zhyy.patient.mapper.PatientMapper;
 import com.two.zhyy.pojo.Doctor;
 import com.two.zhyy.pojo.Doctordt;
@@ -47,6 +49,10 @@ public class PatientServiceImpl implements PatientService{
 	//定义事务
 	@Autowired
 	ApplicationContext cont;
+	
+	//医师
+	@Autowired
+	DoctorMapper doctorMapper;
 	
 	//定义获取指定患者病史
 	@Override
@@ -90,7 +96,23 @@ public class PatientServiceImpl implements PatientService{
 	//开启事务
 	@Transactional(rollbackFor = {NoMoneyException.class},isolation = Isolation.SERIALIZABLE)
 	@Override
-	public void insertReg(Reg reg) throws NoMoneyException {
+	public void insertReg(Reg reg) throws NoMoneyException, OverLoadException {
+		List<Reg> findAll = doctorMapper.findAll(reg.getDoctordt().getDdtid().toString(),reg.getRegtime());
+		
+		System.out.println(reg.getRegtime());
+		String str=reg.getRegtime().substring(reg.getRegtime().indexOf(" ")+1, reg.getRegtime().indexOf(":"));
+		System.out.println(str);
+		int num = Integer.parseInt(str);
+		//早上
+		if(num<8 || num>10 && num<=14 || num>16) {
+			throw new OverLoadException("");
+		}
+		
+		if(findAll.size()>=patientMapper.DoctorWorking(reg.getDoctordt().getDdtid().toString()).getNumber()) {
+			throw new OverLoadException();
+		}
+		
+		
 		patientMapper.insertReg(reg);
 		//获取医师信息对象
 		Doctordt doctordt=patientMapper.selectDoct(reg.getDoctordt().getDdtid());
@@ -119,6 +141,11 @@ public class PatientServiceImpl implements PatientService{
 		patientMapper.updatecard(from, money.negate());
 	}
 
+
+	private void substringBefore(String string, String string2) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	//定义添加日志表（交易时间,交易状态,交易价格,reg:挂号id（外键））
 	//事务的传播行为
