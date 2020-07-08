@@ -128,7 +128,7 @@ public class PatientServiceImpl implements PatientService{
 			}
 		}
 		//判断人数是否已经满了
-		//
+		//dd
 		if(findAll.size()>=patientMapper.DoctorWorking(reg.getDoctordt().getDdtid().toString()).getNumber()) {
 			throw new OverLoadException();
 		}
