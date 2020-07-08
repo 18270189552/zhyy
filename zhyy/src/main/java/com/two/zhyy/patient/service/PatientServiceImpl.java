@@ -100,14 +100,34 @@ public class PatientServiceImpl implements PatientService{
 		List<Reg> findAll = doctorMapper.findAll(reg.getDoctordt().getDdtid().toString(),reg.getRegtime());
 		
 		System.out.println(reg.getRegtime());
+		//获取时间
 		String str=reg.getRegtime().substring(reg.getRegtime().indexOf(" ")+1, reg.getRegtime().indexOf(":"));
-		System.out.println(str);
 		int num = Integer.parseInt(str);
-		//早上
-		if(num<8 || num>10 && num<=14 || num>16) {
-			throw new OverLoadException("");
+		//获取当前系统时间
+		SimpleDateFormat df=new SimpleDateFormat("dd");
+		String date=df.format(new Date());
+		//获取日期
+		Date da=null;
+		String strs=null;
+		try {
+			SimpleDateFormat df1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			da = df1.parse(reg.getRegtime());
+			strs=df.format(da);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
+		//判断当天日期
+		if(date.equals(strs)) {
+			if(num<8 || num>10 && num<=14 || num>16) {
+				throw new OverLoadException("当天日期：");
+			}
+		}else {
+			if(num<8||num>12&&num<=14||num>18) {
+				throw new OverLoadException("其他日期：");
+			}
+		}
+		//判断人数是否已经满了
 		if(findAll.size()>=patientMapper.DoctorWorking(reg.getDoctordt().getDdtid().toString()).getNumber()) {
 			throw new OverLoadException();
 		}
