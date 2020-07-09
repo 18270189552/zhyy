@@ -12,5 +12,9 @@ public class NoMoneyException extends Exception{
 	public NoMoneyException(int from,BigDecimal money) {
 		super(String.format("账号: %d, 转账: %.2f 余额不足", from,money.doubleValue()));
 	}
+	
+	public NoMoneyException() {
+		super(String.format("该患者已挂号"));
+	}
 
 }

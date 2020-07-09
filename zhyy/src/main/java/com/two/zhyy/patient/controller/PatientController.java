@@ -1,5 +1,6 @@
 package com.two.zhyy.patient.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public class PatientController {
 	@Autowired
 	PatientService patientService;
 	
-	private String msg;
+	
 	
 	//获取指定的患者病史
 	@GetMapping("/{idcard}")
@@ -96,6 +97,7 @@ public class PatientController {
 	public String seleReg(
 			@RequestBody Reg reg) {
 		System.out.println("添加挂号================");
+		String msg=null;
 		try {
 			patientService.insertReg(reg);
 		} catch (NoMoneyException e) {
@@ -109,8 +111,21 @@ public class PatientController {
 		return msg;
 	}
 	
-	
-	
+	//获取排序的集合
+	@GetMapping("/clock")
+	public List<Object> colck(@RequestBody Reg reg){
+		List<Object> list=new ArrayList<Object>();
+		String msg=null;
+		try {
+			list = patientService.clock(reg);
+		} catch (NoMoneyException e) {
+			msg = e.getMessage();
+			System.err.println(e.getMessage());
+			list.add(msg);
+		}
+		return list;
+	}
+	 
 	//-----------------------------------------------------------------------------
 	//获取一级科室信息
 	@GetMapping("/section")

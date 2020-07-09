@@ -4,10 +4,17 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.print.attribute.standard.MediaSize.Other;
 
@@ -120,16 +127,19 @@ public class PatientServiceImpl implements PatientService{
 		//判断当天日期
 		if(date.equals(strs)) {
 			if(num<8 || num>10 && num<=14 || num>16) {
+				System.out.println("-------------------------------------------");
 				throw new OverLoadException("当天日期：");
 			}
 		}else {
 			if(num<8||num>12&&num<=14||num>18) {
+				System.out.println("======================================");
 				throw new OverLoadException("其他日期：");
 			}
 		}
 		//判断人数是否已经满了
 		//dd
 		if(findAll.size()>=patientMapper.DoctorWorking(reg.getDoctordt().getDdtid().toString()).getNumber()) {
+			System.out.println("++++++++++++++++++++++++");
 			throw new OverLoadException();
 		}
 		
@@ -284,6 +294,106 @@ public class PatientServiceImpl implements PatientService{
 			}
 		}
 		return map;
+	}
+
+	@Override
+	public List<Object> clock(Reg reg) throws  NoMoneyException {
+		
+		
+		
+		//判断是否超出预约就诊时间
+		Date date = new Date();
+		
+		List<Object> list = new ArrayList<>();
+		
+	  	Reg regs=patientMapper.regload(reg.getRegid());
+	  	if(regs.getRegstate().equals("2")) {
+			throw new NoMoneyException();
+		}
+	    //获取打卡的患者时间
+	    //reg.getRegtime();
+	    System.out.println("==患者时间=="+regs.getRegtime());
+	    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			date = format.parse(regs.getRegtime());
+			long time = date.getTime();
+			System.out.println("=====患者时间转换====="+time);
+			Date d = new Date();
+			long t = d.getTime();
+			System.out.println("----系统时间----"+t);
+			System.out.println("??????????????????"+format.format(d));
+			//比较时间戳
+			if(time>t) {
+				//修改状态
+			  	patientMapper.update(reg);
+			  	//返回指定医师下的打卡患者
+			  	String jt=format.format(d);
+			  	List<Reg> clock = patientMapper.clock("3",format.format(d));
+				//遍历出所有打卡记录
+				SortedMap<String, Object> sormap = new TreeMap<>();
+				for(Reg c:clock) {
+					//把记录加入到map中
+					sormap.put(c.getRegtime(), c);	
+				}	
+				Set<java.util.Map.Entry<String,Object>> enSet=sormap.entrySet();
+			    for (java.util.Map.Entry<String,Object> temp2 :enSet) {
+			      System.out.println("修改前：sortedMap：" +temp2.getKey()+" 值："+temp2.getValue());
+			      //把map加入到list
+			      list.add(temp2);
+			    }
+			}else {
+				//返回指定医师下的打卡患者
+			  	List<Reg> clock = patientMapper.clock("3",format.format(d));
+			  	HashMap<String,Object> map=new LinkedHashMap<>();
+				//遍历出所有打卡记录
+				SortedMap<String, Object> sormap = new TreeMap<>();
+				for(Reg c:clock) {
+					//把记录加入到map中
+					sormap.put(c.getRegtime(), c);	
+				}	
+				Set<java.util.Map.Entry<String,Object>> enSet=sormap.entrySet();
+			    for (java.util.Map.Entry<String,Object> temp2 :enSet) {
+			      System.out.println("修改前：sortedMap：" +temp2.getKey()+" 值："+temp2.getValue());
+			      //把map加入到list
+			      list.add(temp2);
+			      //把map加入到list
+			      map.put(temp2.getKey(), temp2.getValue());
+			    }
+			    //修改状态
+			  	patientMapper.update(reg);
+			  	map.put(regs.getRegtime(), regs);
+			  	List<Reg> clock1 = patientMapper.clock("3",format.format(d));
+			  	sormap.put(regs.getRegtime(), regs);
+			    list.add(2,sormap.put(regs.getRegtime(), regs));
+			    //遍历出所有打卡记录
+			    System.out.println("111111："+clock1.size()+".："+list.size());
+				SortedMap<String, Object> sormap1 = new TreeMap<>();
+				int i1=0;
+				for (Map.Entry<String, Object> e : map.entrySet()) {
+					System.out.println(e.getKey().toString()+"......"+e.getValue().toString());
+					if(i1>=2) {
+						sormap1.put(e.getKey(), e.getValue());							
+					}
+					i1++;
+				}
+			    int i=2;
+				Set<java.util.Map.Entry<String,Object>> enSet1=sormap1.entrySet();
+			    for (java.util.Map.Entry<String,Object> temp2 :enSet1) {
+			      System.out.println("修改后：sortedMap：" +temp2.getKey()+" 值："+temp2.getValue());
+			      //把map加入到list
+			      list.set(i, temp2);
+			      i++;
+			      System.out.println(i);
+			    }
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	//	}
+	    
+		System.out.println(list.size());
+		return list;
 	}
 	
 	
