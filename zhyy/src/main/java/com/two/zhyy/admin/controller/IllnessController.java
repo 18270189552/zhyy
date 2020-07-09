@@ -59,8 +59,9 @@ public class IllnessController {
 	
 	//删除科室信息
 	@DeleteMapping("/{id}")
-	public void remove(@PathVariable Integer id) {
+	public String remove(@PathVariable Integer id) {
 		illnessRepository.deleteById(id);
+		return "删除成功";
 	}
 	
 	//修改科室信息
