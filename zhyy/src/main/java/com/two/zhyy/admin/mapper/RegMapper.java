@@ -102,7 +102,7 @@ public interface RegMapper {
 	 * @param id 挂号id
 	 * @return
 	 */
-	@Select("SELECT * FROM reg,`log` AS l,userdt AS udt, doctordt AS ddt,drecord AS dr WHERE reg.`logid` = l.`logid` AND reg.`udtid` = udt.`udtid` AND reg.`ddtid` = ddt.`ddtid` AND reg.`drid` = dr.`drid` AND reg.`drid` = dr.`drid` AND udt.`idcard` = 360222198010121823 AND reg.`regstate`= 1;")
+	@Select("SELECT * FROM reg,`log` AS l,userdt AS udt WHERE reg.`logid` = l.`logid` AND reg.`udtid` = udt.`udtid` AND  udt.`idcard` = #{id} AND reg.`regstate`= 1;")
 	@Results({
 		@Result(column = "logid",
 				property = "log",
@@ -112,20 +112,9 @@ public interface RegMapper {
 		@Result(column = "udtid",
 		property = "userdt",
 		javaType = Userdt.class,
-		one = @One(select = "com.two.zhyy.admin.mapper.RegMapper.findByIdUsersdt")),
-	
-		@Result(column = "ddtid",
-		property = "doctordt",
-		javaType = Doctordt.class,
-		one = @One(select = "com.two.zhyy.admin.mapper.RegMapper.findByIdDoctordt")),
-		
-		@Result(column = "drid",
-		property = "drecord",
-		javaType = Drecord.class,
-		one = @One(select = "com.two.zhyy.admin.mapper.RegMapper.findByIdDrecord"))
-		
+		one = @One(select = "com.two.zhyy.admin.mapper.RegMapper.findByIdUsersdt"))
 	})
-	Reg findByIdReg(long id);
+	List<Reg> findByIdReg(long id);
 	
 	/**
 	 * 删除挂号信息

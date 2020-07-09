@@ -39,8 +39,8 @@ public class RegistrationController {
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public Reg findById(@PathVariable long id) {
-		return rs.findByid(id);
+	public List<Reg> findById(@PathVariable long id) {
+		return rs.findByid(id);		
 	}
 	
 	/**

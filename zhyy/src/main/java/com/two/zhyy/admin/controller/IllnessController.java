@@ -51,6 +51,7 @@ public class IllnessController {
 	public List<Illness> findSeid(@PathVariable int id) {
 		return illness.findBySeid(id);
 	}
+
 	
 	//通过大科室查询子科室
 	@GetMapping("/section")

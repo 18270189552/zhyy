@@ -125,7 +125,10 @@ public interface PatientMapper {
 	//定义患者的日志信息
 	@Update("UPDATE reg r SET r.`logid`=#{logid} WHERE r.regid=#{regid}")
 	void updaMed(@Param("logid") int logid,@Param("regid") int regid);
-	
+
+	//获取某医师下打卡成功的患者集合
+	@Select("SELECT * FROM reg WHERE regstate = 2 AND ddtid = #{ddtid} AND TO_DAYS(regtime)=TO_DAYS(#{time})")
+	List<Reg> clock(@Param("ddtid")String ddtid,@Param("time")String time);
 	
 	//---------------------------------------------------------------
 	/**
@@ -162,7 +165,7 @@ public interface PatientMapper {
 	})
 	Doctordt doctordtLoad(String ddtid);
 
-	@Select("SELECT * FROM working WHERE ddtid = #{ddtid}")
+	@Select("SELECT * FROM working WHERE ddtid = #{ddtid} ")
 	Working workings(String ddtid);
 	
 	
@@ -221,6 +224,9 @@ public interface PatientMapper {
 		@Result(column = "ddtid",property = "doctordt",javaType = Doctordt.class,one = @One(select = "doctordtLoad"))
 	})
 	Working DoctorWorking(@Param(value = "ddtid") String ddtid);
+	
+	@Select("select * from reg where regid=#{regid}")
+	Reg regload(int regid);
 	
 	
 }

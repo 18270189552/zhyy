@@ -21,7 +21,7 @@ public interface RegService {
 	 * @param id
 	 * @return
 	 */
-	Reg findByid(long id);
+	List<Reg> findByid(long id);
 	
 	
 	/**
