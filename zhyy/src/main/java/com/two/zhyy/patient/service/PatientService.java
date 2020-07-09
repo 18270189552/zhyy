@@ -2,11 +2,16 @@ package com.two.zhyy.patient.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.two.zhyy.patient.exception.NoMoneyException;
+import com.two.zhyy.patient.exception.OverLoadException;
+import com.two.zhyy.pojo.Doctordt;
+import com.two.zhyy.pojo.Illness;
 import com.two.zhyy.pojo.Log;
 import com.two.zhyy.pojo.Medicalcard;
 import com.two.zhyy.pojo.Reg;
+import com.two.zhyy.pojo.Section;
 import com.two.zhyy.pojo.Userdt;
 import com.two.zhyy.pojo.Users;
 /**
@@ -35,5 +40,25 @@ public interface PatientService {
 	void insertcard(Medicalcard card);
 	
 	//定义添加患者挂号表信息
-	void insertReg(Reg reg) throws NoMoneyException;
+	void insertReg(Reg reg) throws NoMoneyException, OverLoadException;
+	
+	//--------------------------------------------------
+	//显示一级科室信息
+	List<Section> sectionAll();
+		
+	//显示二级科室信息
+	List<Illness> illnesseId(String seid);
+		
+	//显示科室下的医师
+	List<Doctordt> doctorId(String illid);
+	
+	//显示科室下14天值班医师
+	Map<String, List<Doctordt>> doctorTime(String illid);
+		
+	//显示指定科室14天的排班
+	//Map<String, Object> doctorDate(String illid);
+		
+	//显示指定医师的排班
+	Map<String, Object> doctorWorking(String ddtid);
+	
 }

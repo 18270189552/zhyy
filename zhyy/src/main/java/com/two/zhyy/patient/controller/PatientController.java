@@ -1,6 +1,7 @@
 package com.two.zhyy.patient.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.two.zhyy.patient.exception.NoMoneyException;
+import com.two.zhyy.patient.exception.OverLoadException;
 import com.two.zhyy.patient.service.PatientService;
+import com.two.zhyy.pojo.Doctordt;
+import com.two.zhyy.pojo.Illness;
 import com.two.zhyy.pojo.Log;
 import com.two.zhyy.pojo.Medicalcard;
 import com.two.zhyy.pojo.Reg;
+import com.two.zhyy.pojo.Section;
 import com.two.zhyy.pojo.Userdt;
 import com.two.zhyy.pojo.Users;
 
@@ -97,7 +102,50 @@ public class PatientController {
 			// TODO Auto-generated catch block
 			msg = e.getMessage();
 			System.err.println(e.getMessage());
+		} catch (OverLoadException e) {
+			msg = e.getMessage();
+			System.err.println(e.getMessage());
 		}
 		return msg;
 	}
+	
+	
+	
+	//-----------------------------------------------------------------------------
+	//获取一级科室信息
+	@GetMapping("/section")
+	public List<Section> sectionAll(){
+		return patientService.sectionAll();
+	}
+		
+	//显示二级科室
+	@GetMapping("/section/{seid}")
+	public List<Illness> illnessId(@PathVariable String seid){
+		return patientService.illnesseId(seid);
+	}
+		
+	//显示科室下的医师
+	@GetMapping("/section/{illid}/doctor")
+	public List<Doctordt> DoctorId(@PathVariable String illid){
+		return patientService.doctorId(illid);
+	}
+		
+	//显示指定科室14天的的值班医师
+	@GetMapping("/doctor/{illid}")
+	public Map<String, List<Doctordt>> DoctorTime(@PathVariable String illid){
+		return patientService.doctorTime(illid);
+	}
+		
+//	//显示14天科室的医师排班
+//	@GetMapping("/section/doctor/{illid}")
+//	public Map<String, Object> DoctorDate(@PathVariable String illid){
+//		return patientService.doctorDate(illid);
+//	}
+		
+	//显示14天医师的排版
+	@GetMapping("/patient/scheduling/{ddtid}")
+	public Map<String, Object> DoctorWorking(@PathVariable String ddtid){
+		return patientService.doctorWorking(ddtid);
+	}
+
 }

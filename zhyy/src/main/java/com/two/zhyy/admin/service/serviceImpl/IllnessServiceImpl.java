@@ -34,4 +34,9 @@ public class IllnessServiceImpl implements IllnessService{
 		return illnessMapper.findBySeid(id);
 	}
 
+	@Override
+	public List<Illness> findName(String name) {
+		return illnessMapper.findName(name);
+	}
+
 }
