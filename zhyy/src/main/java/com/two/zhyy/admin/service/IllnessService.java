@@ -10,10 +10,14 @@ public interface IllnessService {
 	List<Illness> findAll();
 	
 	//查询单个科室信息
-	Illness findById(int id);
+	Object findById(int id);
 	
 	//查询同一大科下的所有科室信息
 	List<Illness> findBySeid(int id);
-	
+
 	List<Illness> findName(String name);
+
+	//通过大科室查询子科室
+	List<Illness> findByName(String name);
+
 }

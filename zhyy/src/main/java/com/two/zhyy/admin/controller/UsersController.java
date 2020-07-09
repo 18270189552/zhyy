@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.two.zhyy.admin.pojo.Users;
@@ -28,25 +29,44 @@ public class UsersController {
 	@GetMapping
 	public List<Users> findAll(){
 		return usersRepository.findAll();
-//		return users.findAll();
 	}
 	
 	//查询单个账户
 	@GetMapping("/{id}")
-	public Users findById(@PathVariable Integer id) {
+	public Object findById(@PathVariable Integer id) {
+		if(!usersRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		return usersRepository.findById(id).get();
+	}
+	
+	//通过医疗卡号查询账户信息
+	@GetMapping("/mc")
+	public List<Users> findmcid(@RequestParam("mcard") String mcard){
+		return users.findmcid(mcard);
 	}
 	
 	//修改账户信息
 	@PutMapping("/{id}")
-	public Users update(@PathVariable Integer id,@RequestBody Users users) {
+	public Object update(@PathVariable Integer id,@RequestBody Users users) {
+		if(!usersRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		users.setId(id);
-		return usersRepository.save(users);
+		if(usersRepository.findById(id).get()!=null) {
+			return usersRepository.save(users);			
+		}else {
+			return null;
+		}
 	}
 	
 	//删除账户信息
 	@DeleteMapping("/{id}")
-	public void remove(@PathVariable Integer id) {
+	public String remove(@PathVariable Integer id) {
+		if(!usersRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		usersRepository.deleteById(id);
+		return "删除成功";
 	}
 }

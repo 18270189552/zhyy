@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.two.zhyy.admin.mapper.DoctordtMapper;
 import com.two.zhyy.admin.pojo.Doctordt;
 import com.two.zhyy.admin.repository.DoctordtRepository;
 import com.two.zhyy.admin.service.DoctordtService;
@@ -34,7 +36,10 @@ public class DoctordtController {
 	
 	//查询单个医师
 	@GetMapping("/{id}")
-	public Doctordt findById(@PathVariable Integer id) {
+	public Object findById(@PathVariable Integer id) {
+		if(!doctordtRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		return doctordtRepository.findById(id).get();
 	}
 	
@@ -44,10 +49,22 @@ public class DoctordtController {
 		return doctordt.findBydocid(id);
 	}
 	
+	//通过级别查询医师
+	@GetMapping("/doctor")
+	public List<Doctordt> findByRank(@RequestParam("rank") String rank){
+		return doctordt.findByRank(rank);
+	}
+	
 	//查询同一科室的医师
 	@GetMapping("/illness/{id}")
 	public List<Doctordt> findByillid(@PathVariable int id){
 		return doctordt.findByillid(id);
+	}
+	
+	//通过科室查询医师
+	@GetMapping("/illness")
+	public List<Doctordt> findByName(@RequestParam("name") String name){
+		return doctordt.findByName(name);
 	}
 	
 	//添加单个医师
@@ -58,14 +75,25 @@ public class DoctordtController {
 	
 	//修改医师信息
 	@PutMapping("/{id}")
-	public Doctordt update(@PathVariable Integer id,@RequestBody Doctordt doctordt) {
+	public Object update(@PathVariable Integer id,@RequestBody Doctordt doctordt) {
+		if(!doctordtRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		doctordt.setDdtid(id);
-		return doctordtRepository.save(doctordt);
+		if(doctordtRepository.findById(id).get()!=null) {
+			return doctordtRepository.save(doctordt);			
+		}else {
+			return null;
+		}
 	}
 	
 	//删除医师
 	@DeleteMapping("/{id}")
-	public void remove(@PathVariable Integer id) {
+	public String remove(@PathVariable Integer id) {
+		if(!doctordtRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		doctordtRepository.deleteById(id);
+		return "删除成功";
 	}
 }

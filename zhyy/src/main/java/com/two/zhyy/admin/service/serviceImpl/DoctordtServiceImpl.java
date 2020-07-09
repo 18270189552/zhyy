@@ -34,4 +34,16 @@ public class DoctordtServiceImpl implements DoctordtService{
 		return doctordt.findByillid(id);
 	}
 
+	//通过级别查询医师
+	@Override
+	public List<Doctordt> findByRank(String rank) {
+		return doctordt.findByRank(rank);
+	}
+
+	//通过科室查询医师
+	@Override
+	public List<Doctordt> findByName(String name) {
+		return doctordt.findByName(name);
+	}
+
 }

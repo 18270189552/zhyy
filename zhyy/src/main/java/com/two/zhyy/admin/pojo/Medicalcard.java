@@ -23,6 +23,10 @@ public class Medicalcard {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer mcid;//逻辑主键
 	
+	//医疗卡号
+	@Column
+	private String mcard;
+
 	//金额
 	@Column
 	private BigDecimal money;
@@ -46,6 +50,14 @@ public class Medicalcard {
 		this.mcid = mcid;
 	}
 
+	public String getMcard() {
+		return mcard;
+	}
+
+	public void setMcard(String mcard) {
+		this.mcard = mcard;
+	}
+	
 	public BigDecimal getMoney() {
 		return money;
 	}

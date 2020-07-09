@@ -33,4 +33,15 @@ public interface UsersMapper {
 					one = @One(select = "com.two.zhyy.admin.mapper.UsersMapper.findmcById"))
 	})
 	List<Users> findAll();
+	
+	//通过医疗卡号查询账户信息
+	@Select("SELECT * FROM users u,medicalcard mc,userpt pt WHERE u.mcid=mc.mcid AND u.ptid=pt.ptid AND mc.mcard=#{mcard}")
+	@Results({
+		@Result(column = "ptid",property = "userpt",javaType = Userpt.class,
+				one = @One(select = "com.two.zhyy.admin.mapper.UsersMapper.findUserptById")),
+		
+		@Result(column = "mcid",property = "medicalcard",javaType = Medicalcard.class,
+				one = @One(select = "com.two.zhyy.admin.mapper.UsersMapper.findmcById"))
+	})
+	List<Users> findmcid(String mcard);
 }
