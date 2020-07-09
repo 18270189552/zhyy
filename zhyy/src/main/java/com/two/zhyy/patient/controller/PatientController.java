@@ -163,4 +163,9 @@ public class PatientController {
 		return patientService.doctorWorking(ddtid);
 	}
 
+	//查看日志记录
+	@GetMapping("/getlog")
+	public List<Log> SeclctLog() {
+		return patientService.selectLog();
+	}
 }

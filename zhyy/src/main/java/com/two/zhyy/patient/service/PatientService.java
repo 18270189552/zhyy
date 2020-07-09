@@ -64,4 +64,6 @@ public interface PatientService {
 	//显示打卡成功的患者
 	List<Object> clock(Reg reg) throws NoMoneyException;
 	
+	//查看日志记录
+	List<Log> selectLog();
 }
