@@ -60,4 +60,6 @@ public interface IllnessMapper {
 	})
 	List<Illness> findByName(String name);
 	
+	@Select("SELECT illid FROM illness WHERE illid = #{id};")
+	String findByNum(int id);
 }

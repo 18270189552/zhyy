@@ -33,7 +33,10 @@ public class UsersController {
 	
 	//查询单个账户
 	@GetMapping("/{id}")
-	public Users findById(@PathVariable Integer id) {
+	public Object findById(@PathVariable Integer id) {
+		if(!usersRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		return usersRepository.findById(id).get();
 	}
 	
@@ -45,7 +48,10 @@ public class UsersController {
 	
 	//修改账户信息
 	@PutMapping("/{id}")
-	public Users update(@PathVariable Integer id,@RequestBody Users users) {
+	public Object update(@PathVariable Integer id,@RequestBody Users users) {
+		if(!usersRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		users.setId(id);
 		if(usersRepository.findById(id).get()!=null) {
 			return usersRepository.save(users);			
@@ -56,7 +62,11 @@ public class UsersController {
 	
 	//删除账户信息
 	@DeleteMapping("/{id}")
-	public void remove(@PathVariable Integer id) {
+	public String remove(@PathVariable Integer id) {
+		if(!usersRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		usersRepository.deleteById(id);
+		return "删除成功";
 	}
 }

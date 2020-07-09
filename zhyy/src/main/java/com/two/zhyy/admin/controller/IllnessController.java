@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.two.zhyy.admin.mapper.IllnessMapper;
 import com.two.zhyy.admin.pojo.Illness;
 import com.two.zhyy.admin.repository.IllnessRepository;
 import com.two.zhyy.admin.service.IllnessService;
@@ -25,6 +26,8 @@ public class IllnessController {
 	@Autowired
 	IllnessRepository illnessRepository;
 	@Autowired
+	IllnessMapper ill;
+	@Autowired
 	IllnessService illness;
 	
 	//查询所有科室信息
@@ -35,7 +38,11 @@ public class IllnessController {
 		
 	//查询单个科室信息
 	@GetMapping("/{id}")
-	public Illness findById(@PathVariable Integer id) {
+	public Object findById(@PathVariable int id){
+		//System.out.println(ill.findByNum(id));
+		if(ill.findByNum(id)==null) {
+			return "未查询到对应的信息";
+		}
 		return illnessRepository.findById(id).get();
 	}
 	
@@ -59,20 +66,26 @@ public class IllnessController {
 	
 	//删除科室信息
 	@DeleteMapping("/{id}")
-	public String remove(@PathVariable Integer id) {
+	public String remove(@PathVariable int id) {
+		if(ill.findByNum(id)==null) {
+			return "未查询到对应的信息";
+		}
 		illnessRepository.deleteById(id);
 		return "删除成功";
 	}
 	
 	//修改科室信息
 	@PutMapping("/{id}")
-	public Illness update(@PathVariable Integer id,@RequestBody Illness illness) {
+	public Object update(@PathVariable int id,@RequestBody Illness illness) {
+		if(ill.findByNum(id)==null) {
+			return "未查询到对应的信息";
+		}
 		//设置id
 		illness.setIllid(id);
 		if(illnessRepository.findById(id).get()!=null) {	
 			return illnessRepository.save(illness);
 		}else {
-			return null;
+			return "修改失败";
 		}
 	}
 }

@@ -24,7 +24,7 @@ public class IllnessServiceImpl implements IllnessService{
 
 	//查询单个科室信息
 	@Override
-	public Illness findById(int id) {
+	public Object findById(int id) {
 		return illnessMapper.findById(id);
 	}
 

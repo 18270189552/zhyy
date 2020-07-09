@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.two.zhyy.admin.mapper.DoctordtMapper;
 import com.two.zhyy.admin.pojo.Doctordt;
 import com.two.zhyy.admin.repository.DoctordtRepository;
 import com.two.zhyy.admin.service.DoctordtService;
@@ -35,7 +36,10 @@ public class DoctordtController {
 	
 	//查询单个医师
 	@GetMapping("/{id}")
-	public Doctordt findById(@PathVariable Integer id) {
+	public Object findById(@PathVariable Integer id) {
+		if(!doctordtRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		return doctordtRepository.findById(id).get();
 	}
 	
@@ -71,7 +75,10 @@ public class DoctordtController {
 	
 	//修改医师信息
 	@PutMapping("/{id}")
-	public Doctordt update(@PathVariable Integer id,@RequestBody Doctordt doctordt) {
+	public Object update(@PathVariable Integer id,@RequestBody Doctordt doctordt) {
+		if(!doctordtRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		doctordt.setDdtid(id);
 		if(doctordtRepository.findById(id).get()!=null) {
 			return doctordtRepository.save(doctordt);			
@@ -82,7 +89,11 @@ public class DoctordtController {
 	
 	//删除医师
 	@DeleteMapping("/{id}")
-	public void remove(@PathVariable Integer id) {
+	public String remove(@PathVariable Integer id) {
+		if(!doctordtRepository.findById(id).isPresent()) {
+			return "未查询到数据";
+		}
 		doctordtRepository.deleteById(id);
+		return "删除成功";
 	}
 }
