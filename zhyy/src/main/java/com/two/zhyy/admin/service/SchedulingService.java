@@ -20,4 +20,10 @@ public interface SchedulingService {
 	 * @return
 	 */
 	List<Working> findById(String name);
+	
+	/**
+	 * 删除当前医生的排班信息
+	 * @param id
+	 */
+	String del(int id);
 }

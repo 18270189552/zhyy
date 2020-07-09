@@ -2,6 +2,7 @@ package com.two.zhyy.admin.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Result;
@@ -12,6 +13,7 @@ import org.apache.ibatis.annotations.Results;
  *
  */
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.two.zhyy.pojo.Doctordt;
 import com.two.zhyy.pojo.Illness;
@@ -58,5 +60,16 @@ public interface SchedulingMapper {
 		@Result(column = "ddtid",property = "doctordt",javaType = Doctordt.class,one = @One(select = "com.two.zhyy.admin.mapper.SchedulingMapper.findById"))
 	})
 	List<Working> findByNamewWorkings(String name);
+	
+	
+	/**
+	 * 删除当前医生的排班信息
+	 * @param id
+	 */
+	@Delete("DELETE FROM working WHERE ddtid = #{id};")
+	int delete(int id);
+	
+	@Update("")
+	int update(Working w);
 	
 }
