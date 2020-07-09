@@ -16,24 +16,25 @@ import com.two.zhyy.pojo.Doctordt;
 import com.two.zhyy.pojo.Drecord;
 import com.two.zhyy.pojo.Reg;
 import com.two.zhyy.pojo.Userdt;
+import com.two.zhyy.pojo.Working;
 
 @Mapper
 public interface DoctorMapper {
 
 	//查询对应医生id下的患者信息
-	@Select("SELECT * FROM reg,userdt AS udt,doctordt AS dt WHERE reg.`udtid` = udt.`udtid` AND reg.ddtid = dt.`ddtid` AND reg.`ddtid`=#{id} AND reg.`regstate` != 0 AND TO_DAYS(reg.`regtime`)=TO_DAYS(#{time})")
-	@Results({
-		@Result(column = "udtid",property = "userdt",javaType = Userdt.class,
-				one = @One(select = "com.two.zhyy.doctor.mapper.DoctorMapper.findByIdUserdt")),
-		
-		@Result(column = "ddtid",property = "doctordt",javaType = Doctordt.class,
-		one = @One(select = "com.two.zhyy.doctor.mapper.DoctorMapper.findByIdDoctordt")),
-		
+		@Select("SELECT * FROM reg,userdt AS udt,doctordt AS dt WHERE reg.`udtid` = udt.`udtid` AND reg.ddtid = dt.`ddtid` AND reg.`ddtid`=#{id} AND reg.`regstate` != 0 AND TO_DAYS(reg.`regtime`)=TO_DAYS(#{time})")
+		@Results({
+			@Result(column = "udtid",property = "userdt",javaType = Userdt.class,
+					one = @One(select = "com.two.zhyy.doctor.mapper.DoctorMapper.findByIdUserdt")),
+			
+			@Result(column = "ddtid",property = "doctordt",javaType = Doctordt.class,
+			one = @One(select = "com.two.zhyy.doctor.mapper.DoctorMapper.findByIdDoctordt")),
+			
 
-		@Result(column = "drid",property = "drecord",javaType = Drecord.class,
-		one = @One(select = "com.two.zhyy.doctor.mapper.DoctorMapper.findByIdDrecord"))
-	})
-	List<Reg> findAll(@Param("id")String id,@Param("time")String time);
+			@Result(column = "drid",property = "drecord",javaType = Drecord.class,
+			one = @One(select = "com.two.zhyy.doctor.mapper.DoctorMapper.findByIdDrecord"))
+		})
+		List<Reg> findAll(@Param("id")String id,@Param("time")String time);
 	
 	
 	@Select("select * from userdt where udtid = #{id}")
@@ -45,13 +46,19 @@ public interface DoctorMapper {
 	@Select("select * from drecord where drid = #{id}")
 	Drecord findByIdDrecord(int id);
 	
-	//添加诊断结果
-	@Insert("INSERT INTO drecord(regid,recipe,symptom,types)VALUES(#{regid},#{recipe},#{symptom},#{types})")
+	//开处方
+	@Insert("INSERT INTO drecord(recipe,symptom,types)VALUES(#{recipe},#{symptom},#{types})")
 	int save(Drecord drecord);
 	
 	
-	//修改诊断结果
+	//添加处方和修改患者挂号状态
 	@Update("UPDATE reg SET drid=#{drid},regstate=#{regstate} WHERE regid=#{id}")
 	int update(@Param("id")Integer id, @Param("drid") Integer drid,@Param("regstate")String stat);
 	
+	//修改诊断人数和添加患者信息
+	@Update("UPDATE working SET number=#{number} WHERE ddtid=#{doctordt.ddtid}")
+	int modify(Working working);
+	
+	@Select("SELECT * FROM userdt WHERE idcard = #{card}")
+	Userdt findByid(int card);
 }
