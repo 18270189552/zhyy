@@ -49,6 +49,7 @@ public class DoctorController {
 		return doctorService.up(id,reg.getDrecord().getDrid(),reg.getRegstate());
 	}
 	
+	
 	@PutMapping
 	public int mod(@RequestBody HashMap<String, Object> map) {
 		Map map2= (Map) map.get("working");
