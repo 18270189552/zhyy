@@ -12,6 +12,7 @@ public class Working {
 	private String data;  //排班日期
 	private Integer number;  //最大诊断人数
 	private Doctordt doctordt;	//医师
+
 	public Integer getWorkid() {
 		return workid;
 	}
@@ -36,6 +37,5 @@ public class Working {
 	public void setDoctordt(Doctordt doctordt) {
 		this.doctordt = doctordt;
 	}
-	
 	
 }

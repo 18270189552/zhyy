@@ -19,6 +19,8 @@ public class Users {
 	private Medicalcard medicalcard;	//用户医疗卡id（外键）
 	
 	private Userpt userpt;	//权限id（外键）
+	
+	
 
 	public Integer getId() {
 		return id;

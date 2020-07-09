@@ -25,7 +25,7 @@ public class RegServiceImpl implements RegService{
 	}
 
 	@Override
-	public Reg findByid(long id) {
+	public List<Reg> findByid(long id) {
 		return rm.findByIdReg(id);
 	}
 

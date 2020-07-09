@@ -61,4 +61,7 @@ public interface PatientService {
 	//显示指定医师的排班
 	Map<String, Object> doctorWorking(String ddtid);
 	
+	//显示打卡成功的患者
+	List<Object> clock(Reg reg) throws NoMoneyException;
+	
 }
