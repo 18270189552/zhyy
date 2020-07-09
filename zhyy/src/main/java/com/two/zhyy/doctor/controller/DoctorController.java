@@ -73,6 +73,8 @@ public class DoctorController {
 		return doctorService.mo(working, reg);
 	}
 	
+	
+	
 	/**
 	 * 查询已存在的患者
 	 * @param idcard
