@@ -34,4 +34,10 @@ public class IllnessServiceImpl implements IllnessService{
 		return illnessMapper.findBySeid(id);
 	}
 
+	//通过大科室查询子科室
+	@Override
+	public List<Illness> findByName(String name) {
+		return illnessMapper.findByName(name);
+	}
+
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.two.zhyy.admin.pojo.Illness;
@@ -42,6 +43,12 @@ public class IllnessController {
 	@GetMapping("/section/{id}")
 	public List<Illness> findSeid(@PathVariable int id) {
 		return illness.findBySeid(id);
+	}
+	
+	//通过大科室查询子科室
+	@GetMapping("/section")
+	public List<Illness> findByName(@RequestParam("name") String name){
+		return illness.findByName(name);
 	}
 	
 	//添加科室信息

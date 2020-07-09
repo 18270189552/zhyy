@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.two.zhyy.admin.pojo.Doctordt;
@@ -44,10 +45,22 @@ public class DoctordtController {
 		return doctordt.findBydocid(id);
 	}
 	
+	//通过级别查询医师
+	@GetMapping("/doctor")
+	public List<Doctordt> findByRank(@RequestParam("rank") String rank){
+		return doctordt.findByRank(rank);
+	}
+	
 	//查询同一科室的医师
 	@GetMapping("/illness/{id}")
 	public List<Doctordt> findByillid(@PathVariable int id){
 		return doctordt.findByillid(id);
+	}
+	
+	//通过科室查询医师
+	@GetMapping("/illness")
+	public List<Doctordt> findByName(@RequestParam("name") String name){
+		return doctordt.findByName(name);
 	}
 	
 	//添加单个医师

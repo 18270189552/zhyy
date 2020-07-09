@@ -14,4 +14,7 @@ public interface IllnessService {
 	
 	//查询同一大科下的所有科室信息
 	List<Illness> findBySeid(int id);
+	
+	//通过大科室查询子科室
+	List<Illness> findByName(String name);
 }

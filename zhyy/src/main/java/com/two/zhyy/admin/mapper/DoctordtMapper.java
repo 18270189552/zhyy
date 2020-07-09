@@ -55,6 +55,17 @@ public interface DoctordtMapper {
 	})
 	List<Doctordt> findBydocid(int id);
 	
+	//通过级别查询医师
+	@Select("select * from doctor doc,doctordt dod,illness ill where dod.docid=doc.docid and dod.illid=ill.illid and doc.rank=#{rank}")
+	@Results({
+		@Result(column = "docid",property = "doctor",javaType = Doctor.class,
+		one = @One(select = "com.two.zhyy.admin.mapper.DoctordtMapper.findDoctorById")),
+		
+		@Result(column = "illid",property = "illness",javaType = Illness.class,
+		one = @One(select = "com.two.zhyy.admin.mapper.DoctordtMapper.findById"))
+	})
+	List<Doctordt> findByRank(String rank);
+	
 	//查询同一科室的医师
 	@Select("select * from doctor doc,doctordt dod,illness ill where dod.docid=doc.docid and dod.illid=ill.illid and dod.illid=#{id}")
 	@Results({
@@ -65,4 +76,15 @@ public interface DoctordtMapper {
 		one = @One(select = "com.two.zhyy.admin.mapper.DoctordtMapper.findById"))
 	})
 	List<Doctordt> findByillid(int id);
+	
+	//通过科室查询医师
+	@Select("select * from doctor doc,doctordt dod,illness ill where dod.docid=doc.docid and dod.illid=ill.illid and ill.illnessname=#{name}")
+	@Results({
+		@Result(column = "docid",property = "doctor",javaType = Doctor.class,
+		one = @One(select = "com.two.zhyy.admin.mapper.DoctordtMapper.findDoctorById")),
+		
+		@Result(column = "illid",property = "illness",javaType = Illness.class,
+		one = @One(select = "com.two.zhyy.admin.mapper.DoctordtMapper.findById"))
+	})
+	List<Doctordt> findByName(String name);
 }
