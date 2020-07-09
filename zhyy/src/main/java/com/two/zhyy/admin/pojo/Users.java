@@ -36,6 +36,9 @@ public class Users {
 	@JoinColumn(name = "ptid")
 	private Userpt userpt;	//权限id（外键）
 
+	public Users() {
+	}
+
 	public Users(String name) {
 		this.username = name;
 	}

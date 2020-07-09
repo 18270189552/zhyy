@@ -395,6 +395,13 @@ public class PatientServiceImpl implements PatientService{
 		System.out.println(list.size());
 		return list;
 	}
+
+	//查看日志记录
+	@Override
+	public List<Log> selectLog() {
+		// TODO Auto-generated method stub
+		return patientMapper.selectLog();
+	}
 	
 	
 	

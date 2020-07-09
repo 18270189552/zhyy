@@ -228,5 +228,9 @@ public interface PatientMapper {
 	@Select("select * from reg where regid=#{regid}")
 	Reg regload(int regid);
 	
+	//查看日志记录
+	@Select("SELECT * FROM `log`")
+	List<Log> selectLog();
+	
 	
 }
