@@ -47,7 +47,7 @@ public class SchedulingController {
 		return ss.findById(name);
 	}
 	/**
-	 * 删除当前医生的排班信息
+	 * 删除当前医生的排班信息 
 	 * @param id
 	 * @return
 	 */

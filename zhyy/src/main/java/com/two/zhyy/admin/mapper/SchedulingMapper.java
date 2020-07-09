@@ -63,7 +63,7 @@ public interface SchedulingMapper {
 	
 	
 	/**
-	 * 删除当前医生的排班信息
+	 * 删除当前医生的排班信息 
 	 * @param id
 	 */
 	@Delete("DELETE FROM working WHERE ddtid = #{id};")

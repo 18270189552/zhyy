@@ -29,7 +29,7 @@ public class SchedulingServiceImpl implements SchedulingService{
 
 	@Override
 	public String del(int id) {
-		
+		 
 		if(sm.delete(id)>=1) {
 			return "删除成功";
 		}
