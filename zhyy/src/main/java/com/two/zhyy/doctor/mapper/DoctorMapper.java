@@ -47,7 +47,7 @@ public interface DoctorMapper {
 	Drecord findByIdDrecord(int id);
 	
 	//开处方
-	@Insert("INSERT INTO drecord(recipe,symptom,types)VALUES(#{recipe},#{symptom},#{types})")
+	@Insert("INSERT INTO drecord(recipe,symptom)VALUES(#{recipe},#{symptom})")
 	int save(Drecord drecord);
 	
 	
