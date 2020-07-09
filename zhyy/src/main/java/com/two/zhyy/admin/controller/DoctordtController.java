@@ -73,7 +73,11 @@ public class DoctordtController {
 	@PutMapping("/{id}")
 	public Doctordt update(@PathVariable Integer id,@RequestBody Doctordt doctordt) {
 		doctordt.setDdtid(id);
-		return doctordtRepository.save(doctordt);
+		if(doctordtRepository.findById(id).get()!=null) {
+			return doctordtRepository.save(doctordt);			
+		}else {
+			return null;
+		}
 	}
 	
 	//删除医师

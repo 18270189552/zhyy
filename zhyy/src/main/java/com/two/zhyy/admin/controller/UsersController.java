@@ -47,7 +47,11 @@ public class UsersController {
 	@PutMapping("/{id}")
 	public Users update(@PathVariable Integer id,@RequestBody Users users) {
 		users.setId(id);
-		return usersRepository.save(users);
+		if(usersRepository.findById(id).get()!=null) {
+			return usersRepository.save(users);			
+		}else {
+			return null;
+		}
 	}
 	
 	//删除账户信息

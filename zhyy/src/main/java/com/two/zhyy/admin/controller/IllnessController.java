@@ -68,6 +68,10 @@ public class IllnessController {
 	public Illness update(@PathVariable Integer id,@RequestBody Illness illness) {
 		//设置id
 		illness.setIllid(id);
-		return illnessRepository.save(illness);
+		if(illnessRepository.findById(id).get()!=null) {	
+			return illnessRepository.save(illness);
+		}else {
+			return null;
+		}
 	}
 }

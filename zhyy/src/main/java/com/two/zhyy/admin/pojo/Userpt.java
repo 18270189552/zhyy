@@ -23,7 +23,7 @@ public class Userpt {
 	private Integer ptid;  //权限id
 	
 	@Column
-	private Integer prole;  //患者 1
+	private String prole;  //患者 1
 
 	public Integer getPtid() {
 		return ptid;
@@ -33,11 +33,11 @@ public class Userpt {
 		this.ptid = ptid;
 	}
 
-	public Integer getProle() {
+	public String getProle() {
 		return prole;
 	}
 
-	public void setProle(Integer prole) {
+	public void setProle(String prole) {
 		this.prole = prole;
 	}
 }
