@@ -21,4 +21,9 @@ public class UsersServiceImpl implements UsersService{
 		return usersMapper.findAll();
 	}
 
+	@Override
+	public List<Users> findmcid(String mcard) {
+		return usersMapper.findmcid(mcard);
+	}
+
 }
